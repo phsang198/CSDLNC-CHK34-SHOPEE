@@ -1,68 +1,82 @@
 package com.mtth.shopee.controller;
 
+import com.mtth.shopee.model.*;
+import com.mtth.shopee.service.CartService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cart")
+@RequiredArgsConstructor
+@Validated
 public class CartController {
 
-    private final JedisPool jedisPool = new JedisPool("localhost", 6379);
+    private final CartService cartService;
 
-    // retrive cart by userId
+    
     @GetMapping("/{userId}")
-    public Map<String, String> getCart(@PathVariable String userId) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            String cartKey = "cart:" + userId;
-            return jedis.hgetAll(cartKey);
-        }
+    public Map<String, Integer> getCart(@PathVariable @NotBlank String userId) {
+        return cartService.getCart(userId);
     }
 
-    // add product to cart by userId
+    
     @PostMapping("/{userId}/add")
-    public String addToCart(@PathVariable String userId,
-                            @RequestParam String productId,
-                            @RequestParam int quantity) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            String cartKey = "cart:" + userId;
-            jedis.hset(cartKey, productId, String.valueOf(quantity));
-            return "Product added/updated successfully!";
-        }
+    public String addToCart(@PathVariable @NotBlank String userId,
+                            @RequestParam @NotBlank String productId,
+                            @RequestParam @Min(1) int quantity) {
+        cartService.addToCart(userId, productId, quantity);
+        return "Product added/updated successfully!";
     }
 
-    // update product quantity in cart by userId
+    
     @PostMapping("/{userId}/update")
-    public String updateQuantity(@PathVariable String userId,
-                                 @RequestParam String productId,
+    public String updateQuantity(@PathVariable @NotBlank String userId,
+                                 @RequestParam @NotBlank String productId,
                                  @RequestParam int delta) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            String cartKey = "cart:" + userId;
-            jedis.hincrBy(cartKey, productId, delta);
-            return "Product quantity updated successfully!";
-        }
+        cartService.updateQuantity(userId, productId, delta);
+        return "Product quantity updated successfully!";
     }
 
-    // delete product from cart by userId
+    
     @DeleteMapping("/{userId}/remove")
-    public String removeProduct(@PathVariable String userId,
-                                @RequestParam String productId) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            String cartKey = "cart:" + userId;
-            jedis.hdel(cartKey, productId);
-            return "Product removed successfully!";
-        }
+    public String removeProduct(@PathVariable @NotBlank String userId,
+                                @RequestParam @NotBlank String productId) {
+        cartService.removeProduct(userId, productId);
+        return "Product removed successfully!";
     }
 
-    // delete all products from cart by userId
+    
     @DeleteMapping("/{userId}")
-    public String clearCart(@PathVariable String userId) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            String cartKey = "cart:" + userId;
-            jedis.del(cartKey);
-            return "Cart cleared successfully!";
-        }
+    public String clearCart(@PathVariable @NotBlank String userId) {
+        cartService.clearCart(userId);
+        return "Cart cleared successfully!";
+    }
+
+    
+    @PostMapping("/{userId}/addBatch")
+    public String addMultipleToCart(@PathVariable @NotBlank String userId,
+                                    @RequestBody @Valid List<CartItem> items) {
+        cartService.addMultipleToCart(userId, items);
+        return "Batch products added/updated successfully!";
+    }
+
+    
+    @GetMapping("/{userId}/summary")
+    public CartSummary getCartSummary(@PathVariable @NotBlank String userId) {
+        return cartService.getCartSummary(userId);
+    }
+
+   
+    @PostMapping("/{userId}/expire")
+    public String setCartExpiry(@PathVariable @NotBlank String userId) {
+        cartService.setCartExpiry(userId);
+        return "Cart expiry set to 24 hours!";
     }
 }
