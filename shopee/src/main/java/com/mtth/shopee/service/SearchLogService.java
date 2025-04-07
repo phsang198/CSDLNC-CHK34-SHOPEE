@@ -87,7 +87,7 @@ public class SearchLogService {
 
     public List<String> getTop5PopularKeywords() {
         PreparedStatement selectPopularKeywords = session.prepare(
-            "SELECT keyword FROM popular_keywords_by_date WHERE search_date = ? LIMIT 5"
+            "SELECT search_query FROM popular_keywords_by_date WHERE search_date = ? LIMIT 5"
         );
     
         BoundStatement bound = selectPopularKeywords.bind(LocalDate.now());
@@ -95,7 +95,7 @@ public class SearchLogService {
     
         List<String> popularKeywords = new ArrayList<>();
         for (Row row : resultSet) {
-            popularKeywords.add(row.getString("keyword"));
+            popularKeywords.add(row.getString("search_query"));
         }
     
         return popularKeywords;
