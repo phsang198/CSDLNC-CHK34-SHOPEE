@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+# Maven wrapper script
+
+MAVEN_VERSION=3.8.4
+MVNW_HOME=$HOME/.m2/wrapper/dists/apache-maven-$MAVEN_VERSION-bin
+
+if [ ! -d "$MVNW_HOME" ]; then
+  mkdir -p "$MVNW_HOME"
+  curl -L -o "$MVNW_HOME/apache-maven-$MAVEN_VERSION-bin.zip" "https://archive.apache.org/dist/maven/binaries/apache-maven-$MAVEN_VERSION-bin.zip"
+  unzip -q "$MVNW_HOME/apache-maven-$MAVEN_VERSION-bin.zip" -d "$MVNW_HOME"
+  rm "$MVNW_HOME/apache-maven-$MAVEN_VERSION-bin.zip"
+fi
+
+exec "$MVNW_HOME/apache-maven-$MAVEN_VERSION/bin/mvn" "$@"
