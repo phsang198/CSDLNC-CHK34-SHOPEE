@@ -1,27 +1,36 @@
+package com.mtth.shopee.controller;
+
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.*;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class CassandraAggregator {
-    public static void main(String[] args) {
+
+    @Scheduled(fixedRate = 1800000) // 30 phút (30 phút = 30 * 60 * 1000 ms)
+    public void aggregateData() {
+        System.out.println("🔄 Starting Cassandra aggregation...");
+
         // 1. Kết nối tới Cassandra
         try (CqlSession session = CqlSession.builder()
                 .addContactPoint(new InetSocketAddress("localhost", 9042))
-                .withLocalDatacenter("datacenter1") // Thường là "datacenter1", kiểm tra bằng cqlsh: "describe keyspaces;"
+                .withLocalDatacenter("datacenter1")
                 .withKeyspace("shopee")
                 .build()) {
 
-            String searchDate = "2025-04-05";
-            String userId = "11111111-1111-1111-1111-111111111111";
+            // Lấy ngày hiện tại
+            LocalDate searchDate = LocalDate.now();
 
-            // 2. Query data từ search_logs_by_user_date
-            String selectQuery = "SELECT search_query FROM search_logs_by_user_date WHERE user_id = ? AND search_date = ?";
+            // 2. Query data từ toàn bộ bảng search_logs_by_user_date
+            String selectQuery = "SELECT search_query FROM search_logs_by_user_date WHERE search_date = ?";
             PreparedStatement preparedSelect = session.prepare(selectQuery);
-            BoundStatement boundSelect = preparedSelect.bind(java.util.UUID.fromString(userId), LocalDate.parse(searchDate));
+            BoundStatement boundSelect = preparedSelect.bind(searchDate);
 
             ResultSet resultSet = session.execute(boundSelect);
 
@@ -38,7 +47,7 @@ public class CassandraAggregator {
 
             for (Map.Entry<String, Integer> entry : keywordCounts.entrySet()) {
                 BoundStatement boundInsert = preparedInsert.bind(
-                        LocalDate.parse(searchDate),
+                        searchDate,
                         entry.getKey(),
                         entry.getValue()
                 );
