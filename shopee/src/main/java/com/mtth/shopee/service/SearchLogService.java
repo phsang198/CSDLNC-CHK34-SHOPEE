@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.InetSocketAddress;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -83,4 +84,20 @@ public class SearchLogService {
         }
         return responses;
     }
+
+    public List<String> getTop5PopularKeywords() {
+        PreparedStatement selectPopularKeywords = session.prepare(
+            "SELECT keyword FROM popular_keywords_by_date WHERE search_date = ? LIMIT 5"
+        );
+    
+        BoundStatement bound = selectPopularKeywords.bind(LocalDate.now());
+        ResultSet resultSet = session.execute(bound);
+    
+        List<String> popularKeywords = new ArrayList<>();
+        for (Row row : resultSet) {
+            popularKeywords.add(row.getString("keyword"));
+        }
+    
+        return popularKeywords;
+    } 
 }

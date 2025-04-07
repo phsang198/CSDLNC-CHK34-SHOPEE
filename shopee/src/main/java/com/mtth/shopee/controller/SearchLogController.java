@@ -37,4 +37,9 @@ public class SearchLogController {
     public List<SearchLogResponse> getLogsByUserId(@PathVariable @NotBlank String userId) {
         return searchLogService.getLogsByUserId(userId);
     }
+
+    @GetMapping("/logs/popular")
+    public List<String> getTop5PopularKeywords() {
+        return searchLogService.getTop5PopularKeywords();
+    }
 }
