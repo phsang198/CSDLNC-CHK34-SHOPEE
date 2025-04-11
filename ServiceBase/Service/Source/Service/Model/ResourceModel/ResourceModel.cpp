@@ -1,7 +1,6 @@
 #pragma once 
 #include "pch.h"
 #include "ResourceModel.h"
-#include "Token/Token.h"
 #include "ConnectionPool/ConnectionPool.h"
 
 
@@ -35,27 +34,7 @@ int ResourceModel::addResource(resource& _Resource)
 	return ConnectionManager::QueryOrther(query, _Resource.id);
 }
 
-RESOURCETYPE ResourceModel::createSchedule(OGRFeature* poFeature)
-{
-	std::string scdname = poFeature->GetFieldAsString("scdname");
-	std::string wid = poFeature->GetFieldAsString("wid");
-	std::string scdid = poFeature->GetFieldAsString("id");
-	std::string inss = poFeature->GetFieldAsString("instance");
-	int itimeout = poFeature->GetFieldAsInteger("itimeout");
-	int wtimeout = poFeature->GetFieldAsInteger("wtimeout");
 
-	return std::make_shared<schedule::registration>(scdname, wid, itimeout, wtimeout, inss, scdid);
-}
-RESOURCETYPE ResourceModel::createExcuteSchedule(OGRFeature* poFeature)
-{
-	std::string scdid = poFeature->GetFieldAsString("id");
-	std::string config = poFeature->GetFieldAsString("config");
-	std::string created = poFeature->GetFieldAsString("created");
-
-	auto tmp = std::make_shared<schedule::registration>("", "", config, "", ToEpochTime(), scdid); 
-	tmp->created = created; 
-	return tmp; 
-}
 int ResourceModel::getResource(std::string rscname, std::string auid, std::vector<RESOURCETYPE>& lst_Resource)
 {
 	std::string query = R"(SELECT * FROM "resourcemanager" 
@@ -85,14 +64,6 @@ int ResourceModel::getResource(std::string rscname, std::string auid, std::vecto
 	{
 		while ((poFeature = poLayer->GetNextFeature()) != NULL)
 		{
-			if (rscname == "schedule")
-			{
-				lst_Resource.push_back(createSchedule(poFeature));
-			}
-			else if (rscname == "excute_schedule")
-			{
-				lst_Resource.push_back(createExcuteSchedule(poFeature));
-			}
 		}
 		geDS->ReleaseResultSet(poLayer);
 	}

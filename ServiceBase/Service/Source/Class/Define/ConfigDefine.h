@@ -90,4 +90,4 @@
 
 #define FILE_CONFIG_PATH "config/config.json"
 #define FILE_SCHEMA_CONFIG_PATH "config/schema.sql"
-#define RUN_PROJECT "ScheduleService.exe"
+#define RUN_PROJECT "Service.exe"

@@ -24,18 +24,12 @@
 #include "License/LicenseManager.h"
 #include "Poco/Zip/Compress.h"
 
-#include "Token/Token.h"
 #include "Validate/Validate.h"
 
 #include "Model/UserModel/UserModel.h"
-#include "Model/AuthorizeModel/AuthorizeModel.h"
-#include "Model/RoleModel/RoleModel.h"
-#include "Model/ApiModel/ApiModel.h"
-#include "Model/RbacModel/RbacModel.h"
 #include "Model/ResourceModel/ResourceModel.h"
 
 #include "Model/ProviderModel/ProviderModel.h"
-#include "Model/ScheduleModel/ScheduleModel.h"
 
 class Poco::Zip::ZipLocalFileHeader;
 
@@ -58,14 +52,12 @@ class SecurityMiddleware
 {
 public:
 	std::string message;
-	tokenManager m_token;
 	std::string productid;
 private:
 	std::map<std::string, std::map<std::string, std::string>> lstAutho;
 public:
 	struct context
 	{
-		std::map<std::string, authorize> listRoles;
 		std::string strRoles;
 		std::string user_name;
 		std::string auid; 
@@ -79,7 +71,7 @@ public:
 public:
 	SecurityMiddleware();
 
-	void setMiddleware(tokenManager TKManager, std::string _productid);
+	void setMiddleware();
 	void before_handle(crow::request& req, crow::response& res, context& ctx);
 	void after_handle(crow::request& req, crow::response& res, context& ctx);
 };
@@ -98,15 +90,9 @@ private:
 
 	CModel m_Model;
 	UserModel m_UserModel;
-	AuthorizeModel m_AuthorizeModel;
-	RoleModel m_RoleModel;
-	ApiModel m_ApiModel;
-
-	RbacModel m_RbacModel;
 	ResourceModel m_ResourceModel;
 	ProviderModel m_ProviderModel;
 
-	ScheduleModel m_ScheduleModel;
 
 public:
 	CIDNService(LPCWSTR pszServiceName,
@@ -135,19 +121,7 @@ public:
 
 	nlohmann::json GenerateSchedule2JSON(const std::vector<RESOURCETYPE>& reg);
 
-	void API_SCHEDULE_GET_METHOD();
-
-	void API_SCHEDULE_POST_METHOD();
-
-	void API_SCHEDULE_PUT_METHOD();
-
-	void API_SCHEDULE_DELETE_METHOD();
-
-	void API_SCHEDULE();
-
-	void API_WEBHOOK();
-
-	void API_SERVICEMESH();
+	void API();
 
 public:
 	//-----------------------------

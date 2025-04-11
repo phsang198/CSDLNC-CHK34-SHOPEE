@@ -140,56 +140,27 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
       </PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\Class\CApi\CApi.cpp" />
     <ClCompile Include="Source\Class\Inc\Task\task_impl.cpp" />
-    <ClCompile Include="Source\Class\iperf\iperf.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Source\Class\License\LicenseManager.cpp" />
     <ClCompile Include="Source\Class\CConfig\Config.cpp" />
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionManager.cpp" />
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionPool.cpp" />
     <ClCompile Include="Source\Class\ConnectionPool\CrowRequestPool.cpp" />
     <ClCompile Include="Source\Class\ErrorCode\Error_code.cpp" />
-    <ClCompile Include="Source\Class\mesh\mesh.cpp" />
-    <ClCompile Include="Source\Class\Product\Product.cpp" />
-    <ClCompile Include="Source\Class\Authorization\Authorization.cpp" />
-    <ClCompile Include="Source\Class\Rbac\Rbac.cpp" />
     <ClCompile Include="Source\Class\Resource\Resource.cpp" />
-    <ClCompile Include="Source\Class\Role\Role.cpp" />
     <ClCompile Include="Source\Class\S3W\S3Wrapper.cpp" />
-    <ClCompile Include="Source\Class\schedule\schedule.cpp" />
-    <ClCompile Include="Source\Class\schedule\ToEpochTime.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Source\Class\ServiceBase\ServiceBase.cpp" />
     <ClCompile Include="Source\Class\ServiceInstaller\ServiceInstaller.cpp" />
-    <ClCompile Include="Source\Class\Token\Token.cpp" />
-    <ClCompile Include="Source\Class\Token\TokenManager.cpp" />
     <ClCompile Include="Source\Class\User\User.cpp" />
     <ClCompile Include="Source\Class\UUID\UuidGenerator.cpp" />
     <ClCompile Include="Source\Class\UUID\uuid_4.cpp" />
     <ClCompile Include="Source\MainService.cpp" />
     <ClCompile Include="Source\Service\Control\MainControl\IDNService.cpp" />
     <ClCompile Include="Source\Service\Control\MiddlewareControl\MiddlewareControl.cpp" />
-    <ClCompile Include="Source\Service\Control\RegistraionControl\RegistrationControl.cpp">
-      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">EditAndContinue</DebugInformationFormat>
-      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|x64'">EditAndContinue</DebugInformationFormat>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Source\Service\Control\ServicemeshControl\ServicemeshControl.cpp" />
-    <ClCompile Include="Source\Service\Control\WebhookControl\WebhookControl.cpp" />
-    <ClCompile Include="Source\Service\Model\ApiModel\ApiModel.cpp" />
-    <ClCompile Include="Source\Service\Model\AuthorizeModel\AuthorizeModel.cpp" />
     <ClCompile Include="Source\Service\Model\CModel\Model.cpp" />
     <ClCompile Include="Source\Service\Model\ProviderModel\ProviderModel.cpp" />
-    <ClCompile Include="Source\Service\Model\RbacModel\RbacModel.cpp" />
     <ClCompile Include="Source\Service\Model\ResourceModel\ResourceModel.cpp" />
-    <ClCompile Include="Source\Service\Model\RoleModel\RoleModel.cpp" />
-    <ClCompile Include="Source\Service\Model\ScheduleModel\ScheduleModel.cpp" />
     <ClCompile Include="Source\Service\Model\UserModel\UserModel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -855,49 +826,34 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
     <ClInclude Include="pch.h" />
     <ClInclude Include="Source\Class\Building3d\building3d.h" />
     <ClInclude Include="Source\Class\Cache\lru_cache.h" />
-    <ClInclude Include="Source\Class\CApi\CApi.h" />
     <ClInclude Include="Source\Class\Define\ApiDefine.h" />
     <ClInclude Include="Source\Class\Define\ConfigDefine.h" />
     <ClInclude Include="Source\Class\Define\IDNStruct.h" />
     <ClInclude Include="Source\Class\Inc\Noncopyable\noncopyable.hpp" />
     <ClInclude Include="Source\Class\Inc\Task\task_impl.hpp" />
     <ClInclude Include="Source\Class\Inc\Task\threadpool.hpp" />
-    <ClInclude Include="Source\Class\iperf\iperf.h" />
     <ClInclude Include="Source\Class\License\licensecc_properties.h" />
     <ClInclude Include="Source\Class\License\LicenseManager.h" />
     <ClInclude Include="Source\Class\License\public_key.h" />
-    <ClInclude Include="Source\Class\mesh\mesh.h" />
     <ClInclude Include="Source\Class\POI\PoiManager.h" />
     <ClInclude Include="Source\Class\CConfig\Config.h" />
     <ClInclude Include="Source\Class\ConnectionPool\ConnectionPool.h" />
     <ClInclude Include="Source\Class\ConnectionPool\CrowRequestPool.h" />
     <ClInclude Include="Source\Class\ErrorCode\Error_code.h" />
-    <ClInclude Include="Source\Class\Product\Product.h" />
     <ClInclude Include="Source\Class\Provider\Provider.h" />
-    <ClInclude Include="Source\Class\Authorization\Authorization.h" />
-    <ClInclude Include="Source\Class\Rbac\Rbac.h" />
     <ClInclude Include="Source\Class\Resource\Resource.h" />
-    <ClInclude Include="Source\Class\Role\Role.h" />
     <ClInclude Include="Source\Class\S3W\S3Wrapper.h" />
-    <ClInclude Include="Source\Class\schedule\schedule.h" />
-    <ClInclude Include="Source\Class\schedule\ToEpochTime.h" />
     <ClInclude Include="Source\Class\ServiceBase\ServiceBase.h" />
     <ClInclude Include="Source\Class\ServiceInstaller\ServiceInstaller.h" />
     <ClInclude Include="Source\Class\ThreadPool\ThreadPool.h" />
-    <ClInclude Include="Source\Class\Token\Token.h" />
     <ClInclude Include="Source\Class\User\User.h" />
     <ClInclude Include="Source\Class\UUID\UuidGenerator.h" />
     <ClInclude Include="Source\Class\UUID\uuid_4.h" />
     <ClInclude Include="Source\Class\Validate\Validate.h" />
     <ClInclude Include="Source\Service\Control\MainControl\IDNService.h" />
-    <ClInclude Include="Source\Service\Model\ApiModel\ApiModel.h" />
-    <ClInclude Include="Source\Service\Model\AuthorizeModel\AuthorizeModel.h" />
     <ClInclude Include="Source\Service\Model\CModel\Model.h" />
     <ClInclude Include="Source\Service\Model\ProviderModel\ProviderModel.h" />
-    <ClInclude Include="Source\Service\Model\RbacModel\RbacModel.h" />
     <ClInclude Include="Source\Service\Model\ResourceModel\ResourceModel.h" />
-    <ClInclude Include="Source\Service\Model\RoleModel\RoleModel.h" />
-    <ClInclude Include="Source\Service\Model\ScheduleModel\ScheduleModel.h" />
     <ClInclude Include="Source\Service\Model\UserModel\UserModel.h" />
     <ClInclude Include="Source\Tools\StringProcess.h" />
     <ClInclude Include="Source\Tools\SupportFunc.h" />

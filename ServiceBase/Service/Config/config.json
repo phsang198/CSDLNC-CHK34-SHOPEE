@@ -7,7 +7,7 @@
 		"description": "VBD ScheduleService 1.0( 240)",
 		"service_type": "Object",
 		"crow": {
-			"maxThread": 128,
+			"maxThread": 50,
 			"maxQueue": 10000,
 			"timeOut": 1000
 		}
@@ -18,41 +18,13 @@
 			"name": "PostgreSQL",
 			"description": "database stores data of building and others",
 			"parameters": {
-				"database_name": "buildings2",
-				"host": "10.222.3.84",
+				"database_name": "shopee",
+				"host": "127.0.0.1",
 				"port": 5432,
 				"user": "postgres",
 				"password": "postgres"
 			}
-		},
-		{
-			"type": "Service",
-			"name": "Token",
-			"description": "Token API for regitration product and getting token",
-			"parameters": {
-				"host": "10.222.3.84",
-				"port": 18081
-			}
-		},
-		{
-			"type": "Service",
-			"name": "Mesh",
-			"description": "ServiceMesh API for regitration mesh",
-			"parameters": {
-				"host": "10.222.3.84",
-				"port": 18093
-			}
-		},
-		{
-			"type": "Service",
-			"name": "Webhook",
-			"description": "Webhook API for callback function",
-			"parameters": {
-				"host": "10.222.3.84",
-				"port": 18088,
-				"url": "http://10.222.3.84:18088/webhook/v1/event"
-			}
-		},
+		}
 		{
 			"type": "Error code",
 			"description": "Erorr code and it's description",

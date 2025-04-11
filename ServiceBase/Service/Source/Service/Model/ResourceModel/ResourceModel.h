@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Resource/Resource.h"
-#include "schedule/schedule.h"
 
 class OGRFeature;
 
-typedef std::variant<resource, std::shared_ptr<schedule::registration>> RESOURCETYPE;
+typedef std::variant<resource> RESOURCETYPE;
 
 
 class ResourceModel
@@ -15,10 +14,6 @@ public:
 	~ResourceModel();
 public:
 	int addResource(resource& _Resource);
-
-	RESOURCETYPE createSchedule(OGRFeature* poFeature);
-
-	RESOURCETYPE createExcuteSchedule(OGRFeature* poFeature);
 
 	int getResource(std::string rscname, std::string auid, std::vector<RESOURCETYPE>& lst_Resource);
 

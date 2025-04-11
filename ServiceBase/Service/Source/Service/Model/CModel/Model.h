@@ -2,11 +2,7 @@
 #include "ConnectionPool/ConnectionPool.h"
 
 // token manager
-#include "Token/Token.h"
 #include "User/User.h"
-#include "Product/Product.h"
-#include "Authorization/Authorization.h"
-#include "Role/Role.h"
 
 class CModel
 {

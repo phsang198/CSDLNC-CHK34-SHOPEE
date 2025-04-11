@@ -5,7 +5,6 @@
 #include <chrono>
 
 #include "CConfig/Config.h"
-#include "mesh/mesh.h"
 #include "Control/MainControl/IDNService.h" 
 
 void CIDNService::API_SERVICEMESH()

@@ -21,9 +21,6 @@
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Class\Product\Product.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Class\S3W\S3Wrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,12 +28,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Class\ServiceInstaller\ServiceInstaller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\Token\Token.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\Token\TokenManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Class\User\User.cpp">
@@ -57,12 +48,6 @@
     <ClCompile Include="Source\Class\CConfig\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Class\Authorization\Authorization.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Service\Model\AuthorizeModel\AuthorizeModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Class\ErrorCode\Error_code.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,28 +57,10 @@
     <ClCompile Include="Source\Service\Control\MiddlewareControl\MiddlewareControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Service\Model\RoleModel\RoleModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\Role\Role.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Class\ConnectionPool\CrowRequestPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Service\Model\ApiModel\ApiModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\CApi\CApi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\Rbac\Rbac.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Service\Model\RbacModel\RbacModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Class\License\LicenseManager.cpp">
@@ -111,31 +78,10 @@
     <ClCompile Include="Source\Service\Model\ProviderModel\ProviderModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Service\Control\RegistraionControl\RegistrationControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\iperf\iperf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\schedule\schedule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Service\Model\ScheduleModel\ScheduleModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Service\Control\WebhookControl\WebhookControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Class\Inc\Task\task_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Class\schedule\ToEpochTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Service\Control\ServicemeshControl\ServicemeshControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Class\mesh\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2129,9 +2075,6 @@
     <ClInclude Include="Source\Class\ConnectionPool\ConnectionPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Class\Product\Product.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Class\Provider\Provider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -2145,9 +2088,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\ThreadPool\ThreadPool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\Token\Token.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\User\User.h">
@@ -2171,37 +2111,13 @@
     <ClInclude Include="Source\Tools\SupportFunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Class\Authorization\Authorization.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Service\Model\AuthorizeModel\AuthorizeModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Class\ErrorCode\Error_code.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Service\Model\UserModel\UserModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Service\Model\RoleModel\RoleModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\Role\Role.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Class\ConnectionPool\CrowRequestPool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Service\Model\ApiModel\ApiModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\CApi\CApi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\Rbac\Rbac.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Service\Model\RbacModel\RbacModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\Define\ApiDefine.h">
@@ -2240,15 +2156,6 @@
     <ClInclude Include="Source\Service\Model\ProviderModel\ProviderModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Class\iperf\iperf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\schedule\schedule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Service\Model\ScheduleModel\ScheduleModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Class\Inc\Noncopyable\noncopyable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -2256,12 +2163,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\Inc\Task\threadpool.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\schedule\ToEpochTime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\mesh\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

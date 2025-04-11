@@ -7,7 +7,6 @@
 
 #include "Provider/Provider.h"
 #include "ConnectionPool/CrowRequestPool.h"
-#include "mesh/mesh.h"
 
 #include "Inc/Task/task_impl.hpp"
 
@@ -117,7 +116,6 @@ void CIDNService::Start()
 	int dbPort;
 
 	Config::Config();
-	Config::loadTokenConfig(product::host);
 
 	Config::loadDBConfig( dbName, dbHost, dbPort, dbUser, dbPassword);
 	Config::loadServiceConfig(servicePort, concurrency, maxQueue, timeOut);
@@ -133,17 +131,6 @@ void CIDNService::Start()
 
 	
 	//-----------------------------------------------------------------// connect to server token 
-	if (!product::getProduct("WorkFlowService"))
-	{
-		Poco::Logger::root().information("Can not connect to TOKEN server!", __FILE__, __LINE__);
-		WriteEventLogEntry(TEXT("Can not connect to TOKEN server!"), EVENTLOG_INFORMATION_TYPE);
-		exit(3);
-		return;
-	}
-	else
-	{
-		Poco::Logger::root().information("Connected to TOKEN server!", __FILE__, __LINE__);
-	}
 	//-----------------------------------------------------------------// connect to server DB 
 	if (!m_Model.Connect(dbName, dbHost, dbPort, dbUser, dbPassword)) 
 	{
@@ -162,45 +149,6 @@ void CIDNService::Start()
 	}
 	//-----------------------------------------------------------------// connect to server minio 
 	
-	{
-		Config::loadSMeshConfig(mesh::host, mesh::config);
-		while (1)
-		{
-			std::cout << "Registering mesh ...." << std::endl; 
-			if (mesh::registerMesh())
-			{
-				Poco::Logger::root().information("Registered mesh!", __FILE__, __LINE__);
-				break;
-			}
-			else
-			{
-				Poco::Logger::root().information("Can not register mesh!", __FILE__, __LINE__);
-				Sleep(20000);
-			}
-		}
-
-		std::vector<rbac> tmp_rbac;
-		std::vector<CApi> tmp_api;
-		std::vector<role> tmp_role;
-
-		m_RbacModel.getRbac(tmp_rbac);
-		m_RoleModel.getRole(tmp_role);
-		m_ApiModel.getApi(tmp_api);
-
-		SupportFunc::vector2map(tmp_api, apiManager::lst_api);
-		SupportFunc::vector2map(tmp_role, roleManager::lst_role);
-		roleManager::id2name(); 
-		rbacManager::vector2map(tmp_rbac);
-
-		m_ScheduleModel.getSchedule();
-		m_ScheduleModel.getExcuteSchedule();
-		Poco::Logger::root().information("Start func - stt: Cache schedule!", __FILE__, __LINE__);
-
-		VBD::Task::Initialize();
-		schedule::manager::timer.run(); 
-
-	}
-
 
 	SetConsoleCtrlHandler(ConsoleCtrlHandler, TRUE);
 	int concurrencyused = (std::max)((double)concurrency, (double)std::thread::hardware_concurrency());
@@ -219,7 +167,7 @@ void CIDNService::Start()
 	//	.setCrossDomainMetaPolicy(PermittedCrossDomainMetaPolicy::MASTER_ONLY);*/
 
 
-	app.get_middleware<SecurityMiddleware>().setMiddleware(product::m_TokenManager, product::id);
+	app.get_middleware<SecurityMiddleware>().setMiddleware();
 	app.server_name("Schedule");
 	app.port(servicePort)
 		.timeout(1)
@@ -250,7 +198,5 @@ void CIDNService::Destroy()
 //=======================================================================================================================
 void CIDNService::handleRoutes()
 {
-	API_SCHEDULE();
-	API_WEBHOOK(); 
-	API_SERVICEMESH(); 
+	API(); 
 }
