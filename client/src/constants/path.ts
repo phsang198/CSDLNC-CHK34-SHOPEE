@@ -1,6 +1,9 @@
 export const path = {
   home: '/',
   user: '/user',
+  chats: '/chats',
+  chatDetail: '/chat-detail/:id',
+  refund: '/refund',
   profile: '/user/profile',
   changePassword: '/user/password',
   historyPurchase: '/user/purchase',

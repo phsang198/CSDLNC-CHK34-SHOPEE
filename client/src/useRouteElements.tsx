@@ -11,10 +11,13 @@ import { path } from './constants/path';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart/Cart';
 import CartLayout from './layouts/CartLayout/CartLayout';
+import Chat from './pages/Chat/Chat';
+import ChatDetail from './pages/Chat/ChatDetails';
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useContext(AuthContext);
   return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />;
+  // return true ? <Outlet /> : <Navigate to={path.login} />;
 };
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -38,6 +41,30 @@ const useRouteElements = () => {
       children: [
         {
           path: path.profile,
+          element: (
+            <MainLayout>
+              <Profile />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.chats,
+          element: (
+            <MainLayout>
+              <Chat />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.chatDetail,
+          element: (
+            <MainLayout>
+              <ChatDetail />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.refund,
           element: (
             <MainLayout>
               <Profile />
