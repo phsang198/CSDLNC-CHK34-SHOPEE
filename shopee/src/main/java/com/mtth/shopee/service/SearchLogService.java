@@ -49,7 +49,7 @@ public class SearchLogService {
 
     public void logSearch(SearchLogRequest request) {
         BoundStatement bound = insertStatement.bind(
-            UUID.fromString(request.getUserId()),
+            request.getUserId(),
             request.getSearchDate(),
             Instant.now(),
             request.getSearchQuery(),

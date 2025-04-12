@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/cart")
@@ -23,13 +24,13 @@ public class CartController {
 
     
     @GetMapping("/{userId}")
-    public Map<String, Integer> getCart(@PathVariable @NotBlank String userId) {
+    public Map<String, Integer> getCart(@PathVariable @NotBlank UUID userId) {
         return cartService.getCart(userId);
     }
 
     
     @PostMapping("/{userId}/add")
-    public String addToCart(@PathVariable @NotBlank String userId,
+    public String addToCart(@PathVariable @NotBlank UUID userId,
                             @RequestParam @NotBlank String productId,
                             @RequestParam @Min(1) int quantity) {
         cartService.addToCart(userId, productId, quantity);
@@ -38,7 +39,7 @@ public class CartController {
 
     
     @PostMapping("/{userId}/update")
-    public String updateQuantity(@PathVariable @NotBlank String userId,
+    public String updateQuantity(@PathVariable @NotBlank UUID userId,
                                  @RequestParam @NotBlank String productId,
                                  @RequestParam int delta) {
         cartService.updateQuantity(userId, productId, delta);
@@ -47,7 +48,7 @@ public class CartController {
 
     
     @DeleteMapping("/{userId}/remove")
-    public String removeProduct(@PathVariable @NotBlank String userId,
+    public String removeProduct(@PathVariable @NotBlank UUID userId,
                                 @RequestParam @NotBlank String productId) {
         cartService.removeProduct(userId, productId);
         return "Product removed successfully!";
@@ -55,14 +56,14 @@ public class CartController {
 
     
     @DeleteMapping("/{userId}")
-    public String clearCart(@PathVariable @NotBlank String userId) {
+    public String clearCart(@PathVariable @NotBlank UUID userId) {
         cartService.clearCart(userId);
         return "Cart cleared successfully!";
     }
 
     
     @PostMapping("/{userId}/addBatch")
-    public String addMultipleToCart(@PathVariable @NotBlank String userId,
+    public String addMultipleToCart(@PathVariable @NotBlank UUID userId,
                                     @RequestBody @Valid List<CartItem> items) {
         cartService.addMultipleToCart(userId, items);
         return "Batch products added/updated successfully!";
@@ -70,13 +71,13 @@ public class CartController {
 
     
     @GetMapping("/{userId}/summary")
-    public CartSummary getCartSummary(@PathVariable @NotBlank String userId) {
+    public CartSummary getCartSummary(@PathVariable @NotBlank UUID userId) {
         return cartService.getCartSummary(userId);
     }
 
    
     @PostMapping("/{userId}/expire")
-    public String setCartExpiry(@PathVariable @NotBlank String userId) {
+    public String setCartExpiry(@PathVariable @NotBlank UUID userId) {
         cartService.setCartExpiry(userId);
         return "Cart expiry set to 24 hours!";
     }

@@ -1,90 +1,113 @@
 package com.mtth.shopee.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mtth.shopee.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
 
     private final JedisPool jedisPool = new JedisPool("localhost", 6379);
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Map<String, Integer> getCart(String userId) {
+    public Map<String, Integer> getCart(UUID userId) {
         try (Jedis jedis = jedisPool.getResource()) {
-            Map<String, String> cart = jedis.hgetAll(buildCartKey(userId));
-            Map<String, Integer> response = new HashMap<>();
-            cart.forEach((k, v) -> response.put(k, Integer.parseInt(v)));
-            return response;
-        }
-    }
-
-    public void addToCart(String userId, String productId, int quantity) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            jedis.hset(buildCartKey(userId), productId, String.valueOf(quantity));
-        }
-    }
-
-    public void updateQuantity(String userId, String productId, int delta) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            Long newQuantity = jedis.hincrBy(buildCartKey(userId), productId, delta);
-            if (newQuantity <= 0) {
-                jedis.hdel(buildCartKey(userId), productId);
+            String json = jedis.get(buildCartKey(userId));
+            if (json == null || json.isEmpty()) {
+                return new HashMap<>();
             }
+            return objectMapper.readValue(json, new TypeReference<Map<String, Integer>>() {});
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to parse cart JSON", e);
         }
     }
 
-    public void removeProduct(String userId, String productId) {
+    public void addToCart(UUID userId, String productId, int quantity) {
         try (Jedis jedis = jedisPool.getResource()) {
-            jedis.hdel(buildCartKey(userId), productId);
+            Map<String, Integer> cart = getCart(userId);
+            cart.put(productId, quantity);
+            jedis.set(buildCartKey(userId), objectMapper.writeValueAsString(cart));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write cart JSON", e);
         }
     }
 
-    public void clearCart(String userId) {
+    public void updateQuantity(UUID userId, String productId, int delta) {
+        try (Jedis jedis = jedisPool.getResource()) {
+            Map<String, Integer> cart = getCart(userId);
+            int newQuantity = cart.getOrDefault(productId, 0) + delta;
+            if (newQuantity <= 0) {
+                cart.remove(productId);
+            } else {
+                cart.put(productId, newQuantity);
+            }
+            jedis.set(buildCartKey(userId), objectMapper.writeValueAsString(cart));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write cart JSON", e);
+        }
+    }
+
+    public void removeProduct(UUID userId, String productId) {
+        try (Jedis jedis = jedisPool.getResource()) {
+            Map<String, Integer> cart = getCart(userId);
+            cart.remove(productId);
+            jedis.set(buildCartKey(userId), objectMapper.writeValueAsString(cart));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write cart JSON", e);
+        }
+    }
+
+    public void clearCart(UUID userId) {
         try (Jedis jedis = jedisPool.getResource()) {
             jedis.del(buildCartKey(userId));
         }
     }
 
-    public void addMultipleToCart(String userId, List<CartItem> items) {
+    public void addMultipleToCart(UUID userId, List<CartItem> items) {
         try (Jedis jedis = jedisPool.getResource()) {
-            String cartKey = buildCartKey(userId);
+            Map<String, Integer> cart = getCart(userId);
             for (CartItem item : items) {
-                jedis.hset(cartKey, item.getProductId(), String.valueOf(item.getQuantity()));
+                cart.put(item.getProductId(), item.getQuantity());
             }
+            jedis.set(buildCartKey(userId), objectMapper.writeValueAsString(cart));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write cart JSON", e);
         }
     }
 
-    public CartSummary getCartSummary(String userId) {
-        try (Jedis jedis = jedisPool.getResource()) {
-            Map<String, String> cart = jedis.hgetAll(buildCartKey(userId));
-            int totalQuantity = 0;
-            double totalPrice = 0.0;
+    public CartSummary getCartSummary(UUID userId) {
+        Map<String, Integer> cart = getCart(userId);
+        int totalQuantity = 0;
+        double totalPrice = 0.0;
 
-            for (Map.Entry<String, String> entry : cart.entrySet()) {
-                int quantity = Integer.parseInt(entry.getValue());
-                double pricePerProduct = 100.0; // TODO: Replace with product service
-                totalQuantity += quantity;
-                totalPrice += quantity * pricePerProduct;
-            }
-
-            return new CartSummary(totalQuantity, totalPrice);
+        for (Map.Entry<String, Integer> entry : cart.entrySet()) {
+            int quantity = entry.getValue();
+            double pricePerProduct = 100.0; // TODO: Replace with real product service
+            totalQuantity += quantity;
+            totalPrice += quantity * pricePerProduct;
         }
+
+        return new CartSummary(totalQuantity, totalPrice);
     }
 
-    public void setCartExpiry(String userId) {
+    public void setCartExpiry(UUID userId) {
         try (Jedis jedis = jedisPool.getResource()) {
             jedis.expire(buildCartKey(userId), 86400); // 24 hours
         }
     }
 
-    private String buildCartKey(String userId) {
+    private String buildCartKey(UUID userId) {
         return "cart:" + userId;
     }
 }
