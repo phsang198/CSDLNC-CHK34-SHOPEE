@@ -59,7 +59,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;CROW_MAIN;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;USE_IMPORT_EXPORT;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;WIN32;%(PreprocessorDefinitions);NOMINMAX;BS_THREAD_POOL_ENABLE_PRIORITY;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)Lib\boost-optional\include;$(ProjectDir)Lib\boost-algorithm\include;$(ProjectDir)Lib\boost-asio\include;$(ProjectDir)Lib\openssl\include;$(ProjectDir)Lib\nlohmann-json\include;;$(ProjectDir)Lib\gdal\include;$(ProjectDir)Lib\crow\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\json\include;$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Service;$(ProjectDir)Source\Class;$(ProjectDir)Lib\AWS\include;$(ProjectDir)Lib\RAPIDJSON;$(ProjectDir)Lib\Poco\1.11.2\include;$(ProjectDir)Lib\LicenseManager\2.0.0\include;$(ProjectDir)Lib\date\3.0.1\include;$(ProjectDir)Lib\cpr-1.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\json\include;$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Service;$(ProjectDir)Source\Class;$(ProjectDir)Lib\RAPIDJSON;$(ProjectDir)Lib\Poco\1.11.2\include;$(ProjectDir)Lib\LicenseManager\2.0.0\include;$(ProjectDir)Lib\date\3.0.1\include;$(ProjectDir)Lib\cpr-1.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -70,18 +70,14 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Lib\AWS\lib\x64\Debug;$(SolutionDir)lib\GDAL\lib\debug;$(ProjectDir)Lib\Poco\1.11.2\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\LicenseManager\2.0.0\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\date\3.0.1\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\cpr-1.1.0\lib\$(Configuration);%(AdditionalLibraryDirectories);$(ProjectDir)Lib\boost-optional\debug\lib;$(ProjectDir)Lib\boost-algorithm\debug\lib;$(ProjectDir)Lib\boost-asio\debug\lib;$(ProjectDir)Lib\openssl\debug\lib;$(ProjectDir)Lib\nlohmann-json\debug\lib;$(ProjectDir)Lib\gdal\debug\lib;$(ProjectDir)Lib\crow\debug\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cpr.lib;gdald.lib;libcurl-d.lib;zlibd.lib;proj_d.lib;aws-c-auth.lib;aws-c-cal.lib;aws-c-common.lib;aws-c-compression.lib;aws-c-event-stream.lib;aws-checksums.lib;aws-c-http.lib;aws-c-io.lib;aws-c-mqtt.lib;aws-cpp-sdk-core.lib;aws-cpp-sdk-s3.lib;aws-cpp-sdk-sts.lib;aws-crt-cpp.lib;aws-c-s3.lib;PocoFoundationd.lib;PocoCryptod.lib;PocoJWTd.lib;PocoJSONd.lib;PocoZipd.lib;licensecc_static.lib;libcrypto64MDd.lib;crypt32.lib;ws2_32.lib;date-tz.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libexpatd.lib;%(AdditionalDependencies);boost_regex-vc143-mt-gd-x64-1_86.lib;boost_container-vc143-mt-gd-x64-1_86.lib;boost_context-vc143-mt-gd-x64-1_86.lib;boost_coroutine-vc143-mt-gd-x64-1_86.lib;boost_date_time-vc143-mt-gd-x64-1_86.lib;boost_system-vc143-mt-gd-x64-1_86.lib;libcrypto.lib;libssl.lib;aec.lib;charset.lib;freexl.lib;geos.lib;geos_c.lib;geotiff_d_i.lib;gif.lib;hdf5_cpp_D.lib;hdf5_D.lib;hdf5_hl_cpp_D.lib;hdf5_hl_D.lib;iconv.lib;jpeg.lib;json-c.lib;kmlbase.lib;kmlconvenience.lib;kmldom.lib;kmlengine.lib;kmlregionator.lib;kmlxsd.lib;Lerc.lib;libecpg.lib;libecpg_compat.lib;libpgcommon.lib;libpgport.lib;libpgtypes.lib;libpng16d.lib;libpq.lib;libsharpyuv.lib;libwebp.lib;libwebpdecoder.lib;libwebpdemux.lib;libwebpmux.lib;libxml2.lib;lz4d.lib;lzma.lib;minizip.lib;netcdf.lib;openjp2.lib;pcre2-16d.lib;pcre2-32d.lib;pcre2-8d.lib;pcre2-posixd.lib;pkgconf.lib;qhullcpp_d.lib;qhull_rd.lib;spatialite.lib;sqlite3.lib;szip.lib;tiffd.lib;turbojpeg.lib;uriparser.lib;zstd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\GDAL\lib\debug;$(ProjectDir)Lib\Poco\1.11.2\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\LicenseManager\2.0.0\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\date\3.0.1\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\cpr-1.1.0\lib\$(Configuration);%(AdditionalLibraryDirectories);$(ProjectDir)Lib\boost-optional\debug\lib;$(ProjectDir)Lib\boost-algorithm\debug\lib;$(ProjectDir)Lib\boost-asio\debug\lib;$(ProjectDir)Lib\openssl\debug\lib;$(ProjectDir)Lib\nlohmann-json\debug\lib;$(ProjectDir)Lib\gdal\debug\lib;$(ProjectDir)Lib\crow\debug\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cpr.lib;gdald.lib;libcurl-d.lib;zlibd.lib;proj_d.lib;PocoFoundationd.lib;PocoCryptod.lib;PocoJWTd.lib;PocoJSONd.lib;PocoZipd.lib;licensecc_static.lib;libcrypto64MDd.lib;crypt32.lib;ws2_32.lib;date-tz.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libexpatd.lib;%(AdditionalDependencies);boost_regex-vc143-mt-gd-x64-1_86.lib;boost_container-vc143-mt-gd-x64-1_86.lib;boost_context-vc143-mt-gd-x64-1_86.lib;boost_coroutine-vc143-mt-gd-x64-1_86.lib;boost_date_time-vc143-mt-gd-x64-1_86.lib;boost_system-vc143-mt-gd-x64-1_86.lib;libcrypto.lib;libssl.lib;aec.lib;charset.lib;freexl.lib;geos.lib;geos_c.lib;geotiff_d_i.lib;gif.lib;hdf5_cpp_D.lib;hdf5_D.lib;hdf5_hl_cpp_D.lib;hdf5_hl_D.lib;iconv.lib;jpeg.lib;json-c.lib;kmlbase.lib;kmlconvenience.lib;kmldom.lib;kmlengine.lib;kmlregionator.lib;kmlxsd.lib;Lerc.lib;libecpg.lib;libecpg_compat.lib;libpgcommon.lib;libpgport.lib;libpgtypes.lib;libpng16d.lib;libpq.lib;libsharpyuv.lib;libwebp.lib;libwebpdecoder.lib;libwebpdemux.lib;libwebpmux.lib;libxml2.lib;lz4d.lib;lzma.lib;minizip.lib;netcdf.lib;openjp2.lib;pcre2-16d.lib;pcre2-32d.lib;pcre2-8d.lib;pcre2-posixd.lib;pkgconf.lib;qhullcpp_d.lib;qhull_rd.lib;spatialite.lib;sqlite3.lib;szip.lib;tiffd.lib;turbojpeg.lib;uriparser.lib;zstd.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(ProjectDir)Lib\iperf\run\ $(OutDir)\iperf\run\  /E/Y
-xcopy $(ProjectDir)Log\ $(SolutionDir)$(Platform)\$(Configuration)\Log\ /E/Y
+      <Command>xcopy $(ProjectDir)Log\ $(SolutionDir)$(Platform)\$(Configuration)\Log\ /E/Y
 xcopy $(ProjectDir)config\ $(SolutionDir)$(Platform)\$(Configuration)\config\ /E/Y
-copy $(ProjectDir)Lib\AWS\bin\x64\$(Configuration)\*.* $(SolutionDir)$(Platform)\$(Configuration)\*.*
 copy $(ProjectDir)Lib\Poco\1.11.2\bin\$(Platform)\$(Configuration)\*.* $(SolutionDir)$(Platform)\$(Configuration)\*.*
 copy $(ProjectDir)Lib\cpr-1.1.0\bin\$(Configuration)\*.* $(SolutionDir)$(Platform)\$(Configuration)\*.*
-
-xcopy /Y /I "$(ProjectDir)Lib\boost-optional\debug\bin\*" "$(OutDir)"
 
 xcopy /Y /I "$(ProjectDir)Lib\boost-algorithm\debug\bin\*" "$(OutDir)"
 
@@ -89,10 +85,7 @@ xcopy /Y /I "$(ProjectDir)Lib\boost-asio\debug\bin\*" "$(OutDir)"
 
 xcopy /Y /I "$(ProjectDir)Lib\openssl\debug\bin\*" "$(OutDir)"
 
-xcopy /Y /I "$(ProjectDir)Lib\nlohmann-json\debug\bin\*" "$(OutDir)"
-
-xcopy /Y /I "$(ProjectDir)Lib\gdal\debug\bin\*" "$(OutDir)"
-xcopy /Y /I "$(ProjectDir)Lib\crow\debug\bin\*" "$(OutDir)"</Command>
+xcopy /Y /I "$(ProjectDir)Lib\gdal\debug\bin\*" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -103,7 +96,7 @@ xcopy /Y /I "$(ProjectDir)Lib\crow\debug\bin\*" "$(OutDir)"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;CROW_MAIN;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;USE_IMPORT_EXPORT;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING;_REENTRANT;%(PreprocessorDefinitions);BS_THREAD_POOL_ENABLE_PRIORITY;_SILENCE_CXX20_CISO646_REMOVED_WARNING;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\json\include;$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Service;$(ProjectDir)Source\Class;$(ProjectDir)Lib\AWS\include;$(ProjectDir)Lib\RAPIDJSON;$(ProjectDir)Lib\Poco\1.11.2\include;$(ProjectDir)Lib\LicenseManager\2.0.0\include;$(ProjectDir)Lib\date\3.0.1\include;$(ProjectDir)Lib\cpr-1.1.0\include;%(AdditionalIncludeDirectories);$(ProjectDir)Lib\boost-optional\include;$(ProjectDir)Lib\boost-algorithm\include;$(ProjectDir)Lib\boost-asio\include;$(ProjectDir)Lib\openssl\include;$(ProjectDir)Lib\nlohmann-json\include;$(ProjectDir)Lib\gdal\include;$(ProjectDir)Lib\crow\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\json\include;$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Service;$(ProjectDir)Source\Class;$(ProjectDir)Lib\RAPIDJSON;$(ProjectDir)Lib\Poco\1.11.2\include;$(ProjectDir)Lib\LicenseManager\2.0.0\include;$(ProjectDir)Lib\date\3.0.1\include;$(ProjectDir)Lib\cpr-1.1.0\include;%(AdditionalIncludeDirectories);$(ProjectDir)Lib\boost-optional\include;$(ProjectDir)Lib\boost-algorithm\include;$(ProjectDir)Lib\boost-asio\include;$(ProjectDir)Lib\openssl\include;$(ProjectDir)Lib\nlohmann-json\include;$(ProjectDir)Lib\gdal\include;$(ProjectDir)Lib\crow\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -115,14 +108,13 @@ xcopy /Y /I "$(ProjectDir)Lib\crow\debug\bin\*" "$(OutDir)"</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)\Lib\AWS\lib\x64\Release;$(ProjectDir)Lib\Poco\1.11.2\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\LicenseManager\2.0.0\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\date\3.0.1\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\cpr-1.1.0\lib\$(Configuration);%(AdditionalLibraryDirectories);$(ProjectDir)Lib\boost-optional\lib;$(ProjectDir)Lib\boost-algorithm\lib;$(ProjectDir)Lib\boost-asio\lib;$(ProjectDir)Lib\openssl\lib;$(ProjectDir)Lib\nlohmann-json\lib;$(ProjectDir)Lib\gdal\lib;$(ProjectDir)Lib\crow\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cpr.lib;libcurl.lib;proj.lib;zlib.lib;zstd.lib;gdal.lib;aws-c-auth.lib;aws-c-cal.lib;aws-c-common.lib;aws-c-compression.lib;aws-c-event-stream.lib;aws-checksums.lib;aws-c-http.lib;aws-c-io.lib;aws-c-mqtt.lib;aws-cpp-sdk-core.lib;aws-cpp-sdk-s3.lib;aws-cpp-sdk-sts.lib;aws-crt-cpp.lib;aws-c-s3.lib;PocoFoundation.lib;PocoCrypto.lib;PocoJWT.lib;PocoJSON.lib;PocoZip.lib;licensecc_static.lib;libcrypto64MD.lib;crypt32.lib;ws2_32.lib;date-tz.lib;libexpat.lib;%(AdditionalDependencies);boost_regex-vc143-mt-x64-1_86.lib;boost_container-vc143-mt-x64-1_86.lib;boost_context-vc143-mt-x64-1_86.lib;boost_coroutine-vc143-mt-x64-1_86.lib;boost_date_time-vc143-mt-x64-1_86.lib;boost_system-vc143-mt-x64-1_86.lib;libcrypto.lib;libssl.lib;aec.lib;charset.lib;freexl.lib;geos.lib;geos_c.lib;geotiff_i.lib;gif.lib;hdf5.lib;hdf5_cpp.lib;hdf5_hl.lib;hdf5_hl_cpp.lib;iconv.lib;jpeg.lib;json-c.lib;kmlbase.lib;kmlconvenience.lib;kmldom.lib;kmlengine.lib;kmlregionator.lib;kmlxsd.lib;Lerc.lib;libecpg.lib;libecpg_compat.lib;libpgcommon.lib;libpgport.lib;libpgtypes.lib;libpng16.lib;libpq.lib;libsharpyuv.lib;libwebp.lib;libwebpdecoder.lib;libwebpdemux.lib;libwebpmux.lib;libxml2.lib;lz4.lib;lzma.lib;minizip.lib;netcdf.lib;openjp2.lib;pcre2-16.lib;pcre2-32.lib;pcre2-8.lib;pcre2-posix.lib;pkgconf.lib;qhullcpp.lib;qhull_r.lib;spatialite.lib;sqlite3.lib;szip.lib;tiff.lib;turbojpeg.lib;uriparser.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Lib\Poco\1.11.2\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\LicenseManager\2.0.0\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\date\3.0.1\lib\$(Platform)\$(Configuration);$(ProjectDir)Lib\cpr-1.1.0\lib\$(Configuration);%(AdditionalLibraryDirectories);$(ProjectDir)Lib\boost-optional\lib;$(ProjectDir)Lib\boost-algorithm\lib;$(ProjectDir)Lib\boost-asio\lib;$(ProjectDir)Lib\openssl\lib;$(ProjectDir)Lib\nlohmann-json\lib;$(ProjectDir)Lib\gdal\lib;$(ProjectDir)Lib\crow\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cpr.lib;libcurl.lib;proj.lib;zlib.lib;zstd.lib;gdal.lib;PocoFoundation.lib;PocoCrypto.lib;PocoJWT.lib;PocoJSON.lib;PocoZip.lib;licensecc_static.lib;libcrypto64MD.lib;crypt32.lib;ws2_32.lib;date-tz.lib;libexpat.lib;%(AdditionalDependencies);boost_regex-vc143-mt-x64-1_86.lib;boost_container-vc143-mt-x64-1_86.lib;boost_context-vc143-mt-x64-1_86.lib;boost_coroutine-vc143-mt-x64-1_86.lib;boost_date_time-vc143-mt-x64-1_86.lib;boost_system-vc143-mt-x64-1_86.lib;libcrypto.lib;libssl.lib;aec.lib;charset.lib;freexl.lib;geos.lib;geos_c.lib;geotiff_i.lib;gif.lib;hdf5.lib;hdf5_cpp.lib;hdf5_hl.lib;hdf5_hl_cpp.lib;iconv.lib;jpeg.lib;json-c.lib;kmlbase.lib;kmlconvenience.lib;kmldom.lib;kmlengine.lib;kmlregionator.lib;kmlxsd.lib;Lerc.lib;libecpg.lib;libecpg_compat.lib;libpgcommon.lib;libpgport.lib;libpgtypes.lib;libpng16.lib;libpq.lib;libsharpyuv.lib;libwebp.lib;libwebpdecoder.lib;libwebpdemux.lib;libwebpmux.lib;libxml2.lib;lz4.lib;lzma.lib;minizip.lib;netcdf.lib;openjp2.lib;pcre2-16.lib;pcre2-32.lib;pcre2-8.lib;pcre2-posix.lib;pkgconf.lib;qhullcpp.lib;qhull_r.lib;spatialite.lib;sqlite3.lib;szip.lib;tiff.lib;turbojpeg.lib;uriparser.lib</AdditionalDependencies>
       <LinkTimeCodeGeneration />
     </Link>
     <PostBuildEvent>
       <Command>xcopy /E /Y "$(ProjectDir)Log\*.*" "$(SolutionDir)$(Platform)\$(Configuration)\Log\"
 xcopy /E /Y "$(ProjectDir)Config\*.*" "$(SolutionDir)$(Platform)\$(Configuration)\Config\"
-xcopy /Y "$(ProjectDir)Lib\AWS\bin\x64\$(Configuration)\*.*" "$(SolutionDir)$(Platform)\$(Configuration)\"
 xcopy /Y "$(ProjectDir)Lib\Poco\1.11.2\bin\$(Platform)\$(Configuration)\*.*" "$(SolutionDir)$(Platform)\$(Configuration)\"
 xcopy /Y "$(ProjectDir)Lib\cpr-1.1.0\bin\$(Configuration)\*.*" "$(SolutionDir)$(Platform)\$(Configuration)\"
 xcopy /E /Y /I "$(ProjectDir)Lib\gdal\bin\*.*" "$(OutDir)"
@@ -147,7 +139,6 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
     <ClCompile Include="Source\Class\ConnectionPool\CrowRequestPool.cpp" />
     <ClCompile Include="Source\Class\ErrorCode\Error_code.cpp" />
     <ClCompile Include="Source\Class\Resource\Resource.cpp" />
-    <ClCompile Include="Source\Class\S3W\S3Wrapper.cpp" />
     <ClCompile Include="Source\Class\ServiceBase\ServiceBase.cpp" />
     <ClCompile Include="Source\Class\ServiceInstaller\ServiceInstaller.cpp" />
     <ClCompile Include="Source\Class\User\User.cpp" />
@@ -838,7 +829,6 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
     <ClInclude Include="Source\Class\ErrorCode\Error_code.h" />
     <ClInclude Include="Source\Class\Provider\Provider.h" />
     <ClInclude Include="Source\Class\Resource\Resource.h" />
-    <ClInclude Include="Source\Class\S3W\S3Wrapper.h" />
     <ClInclude Include="Source\Class\ServiceBase\ServiceBase.h" />
     <ClInclude Include="Source\Class\ServiceInstaller\ServiceInstaller.h" />
     <ClInclude Include="Source\Class\ThreadPool\ThreadPool.h" />

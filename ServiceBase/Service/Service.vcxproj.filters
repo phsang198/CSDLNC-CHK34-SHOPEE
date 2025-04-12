@@ -21,9 +21,6 @@
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Class\S3W\S3Wrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Class\ServiceBase\ServiceBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2073,9 +2070,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\Provider\Provider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\S3W\S3Wrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\ServiceBase\ServiceBase.h">

@@ -20,7 +20,6 @@
 #pragma once
 #include "ServiceBase/ServiceBase.h"
 #include "Model/CModel/Model.h"
-#include "S3W/S3Wrapper.h"
 #include "Poco/Zip/Compress.h"
 
 #include "Validate/Validate.h"
