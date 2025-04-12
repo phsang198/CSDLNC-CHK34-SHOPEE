@@ -1,0 +1,1401 @@
+{
+  "info": {
+    "_postman_id": "c83162bf-1a4b-48db-995f-505968943c03",
+    "name": "Shopee",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34060055"
+  },
+  "item": [
+    {
+      "name": "KhachHang",
+      "item": [
+        {
+          "name": "khach hang",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/khachhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "khachhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "khach hang",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/khachhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "khachhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "khach hang",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"MatKhau\": \"matkhau123\",\r\n  \"Ten\": \"Nguyen Van A\",\r\n  \"Sdt\": \"0909123456\",\r\n  \"Email\": \"vana@example.com\",\r\n  \"NgayDK\": \"2025-04-12\",\r\n  \"MaPTTT\": 2\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/khachhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "khachhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "khach hang",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"MaKH\": 1,\r\n  \"MatKhau\": \"matkhau123\",\r\n  \"Ten\": \"Nguyen Van A\",\r\n  \"Sdt\": \"0909654321\",\r\n  \"Email\": \"vana@example.com\",\r\n  \"NgayDK\": \"2025-04-12\",\r\n  \"MaPTTT\": 2\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/khachhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "khachhang"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DiaChi",
+      "item": [
+        {
+          "name": "DiaChi - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/diachi",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "diachi"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DiaChi - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/diachi",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "diachi"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DiaChi - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TenDC\": \"123 Le Loi, Q1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/diachi",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "diachi"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DiaChi - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TenDC\": \"123 Le Loi, Q1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/diachi",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "diachi"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NguoiBan",
+      "item": [
+        {
+          "name": "NguoiBan - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/nguoiban",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "nguoiban"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "NguoiBan - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/nguoiban",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "nguoiban"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "NguoiBan - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Ten\": \"Shop ABC\",\n  \"MST\": \"1234567890\",\n  \"Sdt\": \"0912345678\",\n  \"Email\": \"shopabc@example.com\",\n  \"NgayDK\": \"2025-04-12\",\n  \"MatKhau\": \"abc123\",\n  \"MaDC\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/nguoiban",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "nguoiban"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "NguoiBan - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Ten\": \"Shop ABC\",\n  \"MST\": \"1234567890\",\n  \"Sdt\": \"0912345678\",\n  \"Email\": \"shopabc@example.com\",\n  \"NgayDK\": \"2025-04-12\",\n  \"MatKhau\": \"abc123\",\n  \"MaDC\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/nguoiban",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "nguoiban"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PhuongThucThanhToan",
+      "item": [
+        {
+          "name": "PhuongThucThanhToan - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucthanhtoan",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucthanhtoan"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PhuongThucThanhToan - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucthanhtoan",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucthanhtoan"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PhuongThucThanhToan - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Ten\": \"Chuy\\u1ec3n kho\\u1ea3n\",\n  \"Loai\": \"Bank\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucthanhtoan",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucthanhtoan"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PhuongThucThanhToan - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Ten\": \"Chuy\\u1ec3n kho\\u1ea3n\",\n  \"Loai\": \"Bank\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucthanhtoan",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucthanhtoan"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ChiTietTT",
+      "item": [
+        {
+          "name": "ChiTietTT - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitiettt",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitiettt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ChiTietTT - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitiettt",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitiettt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ChiTietTT - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaKH\": 1,\n  \"MaPTTT\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitiettt",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitiettt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ChiTietTT - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaKH\": 1,\n  \"MaPTTT\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitiettt",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitiettt"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PhuongThucVanChuyen",
+      "item": [
+        {
+          "name": "PhuongThucVanChuyen - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucvanchuyen",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucvanchuyen"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PhuongThucVanChuyen - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucvanchuyen",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucvanchuyen"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PhuongThucVanChuyen - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TenPTVC\": \"Giao h\\u00e0ng nhanh\",\n  \"Gia\": 30000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucvanchuyen",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucvanchuyen"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PhuongThucVanChuyen - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TenPTVC\": \"Giao h\\u00e0ng nhanh\",\n  \"Gia\": 30000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/phuongthucvanchuyen",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "phuongthucvanchuyen"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PTVCNB",
+      "item": [
+        {
+          "name": "PTVCNB - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/ptvcnb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "ptvcnb"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PTVCNB - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/ptvcnb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "ptvcnb"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PTVCNB - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaNB\": 1,\n  \"MaPTVC\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/ptvcnb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "ptvcnb"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PTVCNB - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaNB\": 1,\n  \"MaPTVC\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/ptvcnb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "ptvcnb"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Voucher",
+      "item": [
+        {
+          "name": "Voucher - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/voucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "voucher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Voucher - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/voucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "voucher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Voucher - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TenVC\": \"GIAM10\",\n  \"GiaTri\": 10000,\n  \"SoLuong\": 100,\n  \"NgayHetHan\": \"2025-12-31\",\n  \"NgayKhaDung\": \"2025-01-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/voucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "voucher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Voucher - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TenVC\": \"GIAM10\",\n  \"GiaTri\": 10000,\n  \"SoLuong\": 100,\n  \"NgayHetHan\": \"2025-12-31\",\n  \"NgayKhaDung\": \"2025-01-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/voucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "voucher"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "VoucherNB",
+      "item": [
+        {
+          "name": "VoucherNB - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/vouchernb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vouchernb"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "VoucherNB - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/vouchernb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vouchernb"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "VoucherNB - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaVC\": 1,\n  \"MaNB\": 1,\n  \"TenVC\": \"GIAM10\",\n  \"GiaTri\": 10000,\n  \"SoLuong\": 100,\n  \"NgayHetHan\": \"2025-12-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/vouchernb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vouchernb"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "VoucherNB - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaVC\": 1,\n  \"MaNB\": 1,\n  \"TenVC\": \"GIAM10\",\n  \"GiaTri\": 10000,\n  \"SoLuong\": 100,\n  \"NgayHetHan\": \"2025-12-31\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/vouchernb",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vouchernb"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ViVoucher",
+      "item": [
+        {
+          "name": "ViVoucher - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/vivoucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vivoucher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ViVoucher - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/vivoucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vivoucher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ViVoucher - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaKH\": 1,\n  \"MaVC\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/vivoucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vivoucher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ViVoucher - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaKH\": 1,\n  \"MaVC\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/vivoucher",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "vivoucher"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "SanPham",
+      "item": [
+        {
+          "name": "SanPham - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/sanpham",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "sanpham"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SanPham - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/sanpham",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "sanpham"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SanPham - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Ten\": \"\\u00c1o thun\",\n  \"NgayNhapKho\": \"2025-04-10\",\n  \"SoLuong\": 100,\n  \"GiaBan\": 150000,\n  \"MaNB\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/sanpham",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "sanpham"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SanPham - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Ten\": \"\\u00c1o thun\",\n  \"NgayNhapKho\": \"2025-04-10\",\n  \"SoLuong\": 100,\n  \"GiaBan\": 150000,\n  \"MaNB\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/sanpham",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "sanpham"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DonHang",
+      "item": [
+        {
+          "name": "DonHang - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/donhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "donhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DonHang - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/donhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "donhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DonHang - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"NgayDat\": \"2025-04-11\",\n  \"TrangThai\": \"Ch\\u1edd x\\u00e1c nh\\u1eadn\",\n  \"MaDC\": 1,\n  \"MaKH\": 1,\n  \"MaPTTT\": 1,\n  \"TrangThaiThanhToan\": \"Ch\\u01b0a thanh to\\u00e1n\",\n  \"MaVC\": 1,\n  \"MaVCNB\": 1,\n  \"MaPTVC\": 1,\n  \"TongTien\": 300000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/donhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "donhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DonHang - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"NgayDat\": \"2025-04-11\",\n  \"TrangThai\": \"Ch\\u1edd x\\u00e1c nh\\u1eadn\",\n  \"MaDC\": 1,\n  \"MaKH\": 1,\n  \"MaPTTT\": 1,\n  \"TrangThaiThanhToan\": \"Ch\\u01b0a thanh to\\u00e1n\",\n  \"MaVC\": 1,\n  \"MaVCNB\": 1,\n  \"MaPTVC\": 1,\n  \"TongTien\": 300000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/donhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "donhang"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ChiTietDonHang",
+      "item": [
+        {
+          "name": "ChiTietDonHang - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitietdonhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitietdonhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ChiTietDonHang - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitietdonhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitietdonhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ChiTietDonHang - POST",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaDH\": 1,\n  \"MaSP\": 1,\n  \"SoLuong\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitietdonhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitietdonhang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ChiTietDonHang - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaDH\": 1,\n  \"MaSP\": 1,\n  \"SoLuong\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://0.0.0.0:18089/chitietdonhang",
+              "protocol": "http",
+              "host": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],"port":18089,
+              "path": [
+                "chitietdonhang"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
