@@ -48,9 +48,6 @@
     <ClCompile Include="Source\Class\ErrorCode\Error_code.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Service\Model\UserModel\UserModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Service\Control\MiddlewareControl\MiddlewareControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2103,9 +2100,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\ErrorCode\Error_code.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Service\Model\UserModel\UserModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\ConnectionPool\CrowRequestPool.h">

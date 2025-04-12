@@ -24,7 +24,6 @@
 
 #include "Validate/Validate.h"
 
-#include "Model/UserModel/UserModel.h"
 #include "Model/ResourceModel/ResourceModel.h"
 
 #include "Model/ProviderModel/ProviderModel.h"
@@ -86,7 +85,6 @@ private:
 	static CIDNService* m_instance;
 
 	CModel m_Model;
-	UserModel m_UserModel;
 	ResourceModel m_ResourceModel;
 	ProviderModel m_ProviderModel;
 
@@ -119,6 +117,14 @@ public:
 	nlohmann::json GenerateSchedule2JSON(const std::vector<RESOURCETYPE>& reg);
 
 	void API();
+	void API_KhachHang();
+	void API_DonHang();
+	void API_SanPham();
+	void API_NguoiBan();
+	void API_ChiTietDonHang();
+	void API_Voucher();
+	void API_ViVoucher();
+	void API_VoucherNB();
 
 public:
 	//-----------------------------

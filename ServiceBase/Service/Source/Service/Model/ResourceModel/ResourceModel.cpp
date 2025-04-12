@@ -4,6 +4,20 @@
 #include "ConnectionPool/ConnectionPool.h"
 
 
+std::map<int, KhachHang> cache::lstKhachHang;
+std::map<int, NguoiBan> cache::lstNguoiBan;
+std::map<int, DiaChi> cache::lstDiaChi;
+std::map<int, PhuongThucThanhToan> cache::lstPhuongThucThanhToan;
+std::map<int, PhuongThucVanChuyen> cache::lstPhuongThucVanChuyen;
+std::map<int, Voucher> cache::lstVoucher;
+std::map<int, VoucherNB> cache::lstVoucherNB;
+std::map<int, ViVoucher> cache::lstViVoucher;
+std::map<int, SanPham> cache::lstSanPham;
+std::map<int, DonHang> cache::lstDonHang;
+std::map<int, ChiTietDonHang> cache::lstChiTietDonHang;
+std::map<int, ChiTietTT> cache::lstChiTietTT;
+std::map<int, PTVCNB> cache::lstPTVCNB;
+
 ResourceModel::ResourceModel()
 {
 }
@@ -40,17 +54,6 @@ int ResourceModel::getResource(std::string rscname, std::string auid, std::vecto
 	std::string query = R"(SELECT * FROM "resourcemanager" 
 						   WHERE  rscname = '$rscname' AND auid = '$auid' )";
 
-	if (rscname != "resource")
-		query = R"(SELECT * 
-					FROM "$rscname"
-					WHERE id IN (
-						SELECT rscid
-						FROM resourcemanager
-						WHERE auid = '$auid' AND rscname = '$rscname'
-					)
-				)";
-	if ( auid == "60612643-cb8c-4fc6-acd6-3f3019faf451") 
-		query = R"(SELECT * FROM "$rscname" )";
 
 	StringProcess::ReplaceAll(query, "$auid", auid);
 	StringProcess::ReplaceAll(query, "$rscname", rscname);

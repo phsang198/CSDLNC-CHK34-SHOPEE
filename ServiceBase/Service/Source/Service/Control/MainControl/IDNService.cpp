@@ -193,5 +193,13 @@ void CIDNService::Destroy()
 //=======================================================================================================================
 void CIDNService::handleRoutes()
 {
-	API(); 
+	API_KhachHang();
+	API_DonHang(); 
+	API_SanPham();
+	API_NguoiBan();
+
+	API_ChiTietDonHang();
+	API_Voucher();
+	API_ViVoucher();
+	API_VoucherNB();
 }

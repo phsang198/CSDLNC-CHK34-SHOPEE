@@ -151,7 +151,6 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
     <ClCompile Include="Source\Service\Model\CModel\Model.cpp" />
     <ClCompile Include="Source\Service\Model\ProviderModel\ProviderModel.cpp" />
     <ClCompile Include="Source\Service\Model\ResourceModel\ResourceModel.cpp" />
-    <ClCompile Include="Source\Service\Model\UserModel\UserModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lib\AWS\include\aws\auth\auth.h" />
@@ -840,7 +839,6 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
     <ClInclude Include="Source\Service\Model\CModel\Model.h" />
     <ClInclude Include="Source\Service\Model\ProviderModel\ProviderModel.h" />
     <ClInclude Include="Source\Service\Model\ResourceModel\ResourceModel.h" />
-    <ClInclude Include="Source\Service\Model\UserModel\UserModel.h" />
     <ClInclude Include="Source\Tools\StringProcess.h" />
     <ClInclude Include="Source\Tools\SupportFunc.h" />
   </ItemGroup>
