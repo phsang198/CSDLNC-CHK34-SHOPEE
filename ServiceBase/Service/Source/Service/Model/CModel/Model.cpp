@@ -8,9 +8,6 @@ CModel::CModel()
 	//Mmtx.lock(); 
 		//Init Cache 
 
-	std::string szPath = SupportFunc::SupportFunc::getExePath(RUN_PROJECT) + FOLDER_SHARE "proj4";
-	const char* szProjPath[]{ szPath.c_str(), nullptr };
-	OSRSetPROJSearchPaths(szProjPath);
 }
 
 CModel::~CModel()

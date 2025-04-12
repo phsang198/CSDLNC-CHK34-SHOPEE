@@ -24,7 +24,6 @@ CIDNService::CIDNService(LPCWSTR pszServiceName,
 	m_dwArgc = dwArgc;
 	m_pszArgv = pszArgv;
 	m_instance = this;
-	_pLicenseMngr = std::make_shared<CLicenseManager>();
 
 	auto& cors = app.get_middleware<crow::CORSHandler>();
 	cors
@@ -86,8 +85,6 @@ void CIDNService::OnStop()
 
 
 #ifndef _DEBUG
-	if (_pLicenseMngr)
-		_pLicenseMngr->Stop();
 #endif
 	m_Model.Destroy();
 	app.stop();
@@ -115,7 +112,7 @@ void CIDNService::Start()
 	std::string dbName, dbHost, dbUser, dbPassword;
 	int dbPort;
 
-	Config::Config();
+	Config::Config(); 
 
 	Config::loadDBConfig( dbName, dbHost, dbPort, dbUser, dbPassword);
 	Config::loadServiceConfig(servicePort, concurrency, maxQueue, timeOut);
@@ -125,8 +122,6 @@ void CIDNService::Start()
 	CrowRequestPool::createPool(maxQueue, timeOut);
 	
 #ifndef _DEBUG
-	if (_pLicenseMngr)
-		_pLicenseMngr->Start();
 #endif
 
 	

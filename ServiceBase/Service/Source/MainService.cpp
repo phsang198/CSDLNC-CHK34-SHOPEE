@@ -14,10 +14,9 @@
 // 
 
 
-#define LICENSE_NAME             "WorkflowService"
 
 // Displayed name of the service
-#define SERVICE_DISPLAY_NAME     TEXT("Schedule Service(C++)")
+#define SERVICE_DISPLAY_NAME     TEXT("Service(C++)")
 // Service start options.
 #define SERVICE_START_TYPE       SERVICE_AUTO_START//SERVICE_DEMAND_START
 // List of service dependencies - "dep1\0dep2\0\0"
@@ -39,22 +38,11 @@ int _tmain(int argc, _TCHAR* argv[])
 #ifdef _DEBUG
 	CServiceBase::RunDebug(service);
 #else
-	std::string szFileLic, szProductName = LICENSE_NAME;
-	Poco::UnicodeConverter::toUTF8(std::wstring(szCurDir + szModuleName + L".lic"), szFileLic);
-	std::shared_ptr<CLicenseManager> pLicMngr = service.GetLicenseManager();
-	pLicMngr->SetProductName(szProductName);
-	pLicMngr->SetLicenseFile(szFileLic);
 
 	if ((argc > 1) && ((*argv[1] == '-') || (*argv[1] == '/')))
 	{
 		if (lstrcmpi(TEXT("install"), argv[1] + 1) == 0)
 		{
-			if (pLicMngr->Check(szProductName, szFileLic) != LICENSE_OK)
-			{
-				std::string szHardwareID = pLicMngr->GetHardwareID();
-				int nRepeated = 1;
-				pLicMngr->CheckAndCreate(szProductName, szHardwareID, szFileLic, nRepeated);
-			}
 			/*Install the service when the command is
 			"-install\"or "/install".*/
 			InstallService(
@@ -74,12 +62,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		else if (lstrcmpi(TEXT("debug"), argv[1] + 1) == 0)
 		{
-			if (pLicMngr->Check(szProductName, szFileLic) != LICENSE_OK)
-			{
-				std::string szHardwareID = pLicMngr->GetHardwareID();
-				int nRepeated = 1;
-				pLicMngr->CheckAndCreate(szProductName, szHardwareID, szFileLic, nRepeated);
-			}
 			CServiceBase::RunDebug(service);
 		}
 	}

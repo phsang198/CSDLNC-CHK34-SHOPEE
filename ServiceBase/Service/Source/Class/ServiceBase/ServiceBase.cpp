@@ -2,17 +2,17 @@
 * Module Name:  ServiceBase.cpp
 * Project:      CppWindowsService
 * Copyright (c) Microsoft Corporation.
-* 
-* Provides a base class for a service that will exist as part of a service 
-* application. CServiceBase must be derived from when creating a new service 
+*
+* Provides a base class for a service that will exist as part of a service
+* application. CServiceBase must be derived from when creating a new service
 * class.
-* 
+*
 * This source is subject to the Microsoft Public License.
 * See http://www.microsoft.com/en-us/openness/resources/licenses.aspx#MPL.
 * All other rights reserved.
-* 
-* THIS CODE AND INFORMATION IS PROVIDED "AS IS\"WITHOUT WARRANTY OF ANY KIND, 
-* EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED 
+*
+* THIS CODE AND INFORMATION IS PROVIDED "AS IS\"WITHOUT WARRANTY OF ANY KIND,
+* EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
 * WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 \***************************************************************************/
 
@@ -28,7 +28,7 @@
 #pragma region Static Members
 
 // Initialize the singleton service instance.
-CServiceBase *CServiceBase::s_service = NULL;
+CServiceBase* CServiceBase::s_service = NULL;
 
 
 //
@@ -47,11 +47,11 @@ CServiceBase *CServiceBase::s_service = NULL;
 //   function fails, the return value is FALSE. To get extended error 
 //   information, call GetLastError.
 //
-BOOL CServiceBase::Run(CServiceBase &service)
+BOOL CServiceBase::Run(CServiceBase& service)
 {
     s_service = &service;
 
-    SERVICE_TABLE_ENTRY serviceTable[2] = 
+    SERVICE_TABLE_ENTRY serviceTable[2] =
     {
         {const_cast<LPWSTR>(service.m_name), (LPSERVICE_MAIN_FUNCTION)ServiceMain },
         { NULL, NULL }
@@ -64,10 +64,10 @@ BOOL CServiceBase::Run(CServiceBase &service)
     return StartServiceCtrlDispatcher(serviceTable);
 }
 
-void CServiceBase::RunDebug(CServiceBase &service)
+void CServiceBase::RunDebug(CServiceBase& service)
 {
-	s_service = &service;
-	s_service->OnStartDebug(0, NULL);
+    s_service = &service;
+    s_service->OnStartDebug(0, NULL);
 }
 
 
@@ -125,12 +125,12 @@ void WINAPI CServiceBase::ServiceCtrlHandler(DWORD dwCtrl)
 {
     switch (dwCtrl)
     {
-		case SERVICE_CONTROL_STOP: s_service->Stop(); break;
-		case SERVICE_CONTROL_PAUSE: s_service->Pause(); break;
-		case SERVICE_CONTROL_CONTINUE: s_service->Continue(); break;
-		case SERVICE_CONTROL_SHUTDOWN: s_service->Shutdown(); break;
-		case SERVICE_CONTROL_INTERROGATE: break;
-		default: break;
+    case SERVICE_CONTROL_STOP: s_service->Stop(); break;
+    case SERVICE_CONTROL_PAUSE: s_service->Pause(); break;
+    case SERVICE_CONTROL_CONTINUE: s_service->Continue(); break;
+    case SERVICE_CONTROL_SHUTDOWN: s_service->Shutdown(); break;
+    case SERVICE_CONTROL_INTERROGATE: break;
+    default: break;
     }
 }
 
@@ -155,9 +155,9 @@ void WINAPI CServiceBase::ServiceCtrlHandler(DWORD dwCtrl)
 //   * fCanPauseContinue - the service can be paused and continued
 //
 CServiceBase::CServiceBase(LPCWSTR pszServiceName,
-                           BOOL fCanStop, 
-                           BOOL fCanShutdown, 
-                           BOOL fCanPauseContinue)
+    BOOL fCanStop,
+    BOOL fCanShutdown,
+    BOOL fCanPauseContinue)
 {
     // Service name must be a valid string and cannot be NULL.
     m_name = (pszServiceName == NULL) ? TEXT("") : pszServiceName;
@@ -165,18 +165,18 @@ CServiceBase::CServiceBase(LPCWSTR pszServiceName,
     m_statusHandle = NULL;
 
     // The service runs in its own process.
-	m_status.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
+    m_status.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
 
     // The service is starting.
     m_status.dwCurrentState = SERVICE_START_PENDING;
 
     // The accepted commands of the service.
     DWORD dwControlsAccepted = 0;
-    if (fCanStop) 
+    if (fCanStop)
         dwControlsAccepted |= SERVICE_ACCEPT_STOP;
-    if (fCanShutdown) 
+    if (fCanShutdown)
         dwControlsAccepted |= SERVICE_ACCEPT_SHUTDOWN;
-    if (fCanPauseContinue) 
+    if (fCanPauseContinue)
         dwControlsAccepted |= SERVICE_ACCEPT_PAUSE_CONTINUE;
     m_status.dwControlsAccepted = dwControlsAccepted;
 
@@ -195,7 +195,7 @@ CServiceBase::CServiceBase(LPCWSTR pszServiceName,
     szCurDir.erase(found, szCurDir.length() - 1);
 
     std::string logFilePath = szCurDir + "/Log/";
-   // logfile = std::make_shared<Poco::LogFile>(logFilePath);
+    // logfile = std::make_shared<Poco::LogFile>(logFilePath);
 
     Poco::File f = Poco::File(logFilePath);
     if (!f.exists())
@@ -297,7 +297,7 @@ void CServiceBase::Start(DWORD dwArgc, PSTR* pszArgv)
 //   * dwArgc   - number of command line arguments
 //   * lpszArgv - array of command line arguments
 //
-void CServiceBase::OnStart(DWORD dwArgc, PSTR *pszArgv)
+void CServiceBase::OnStart(DWORD dwArgc, PSTR* pszArgv)
 {
     WriteEventLogEntry(TEXT("Service failed to stop."), EVENTLOG_ERROR_TYPE);
     Poco::Logger::root().information("OnStart func - stt: Service failed to stop.", __FILE__, __LINE__);
@@ -551,9 +551,9 @@ void CServiceBase::OnShutdown()
 //   * dwWin32ExitCode - error code to report
 //   * dwWaitHint - estimated time for pending operation, in milliseconds
 //
-void CServiceBase::SetServiceStatus(DWORD dwCurrentState, 
-                                    DWORD dwWin32ExitCode, 
-                                    DWORD dwWaitHint)
+void CServiceBase::SetServiceStatus(DWORD dwCurrentState,
+    DWORD dwWin32ExitCode,
+    DWORD dwWaitHint)
 {
     static DWORD dwCheckPoint = 1;
 
@@ -563,10 +563,10 @@ void CServiceBase::SetServiceStatus(DWORD dwCurrentState,
     m_status.dwWin32ExitCode = dwWin32ExitCode;
     m_status.dwWaitHint = dwWaitHint;
 
-    m_status.dwCheckPoint = 
+    m_status.dwCheckPoint =
         ((dwCurrentState == SERVICE_RUNNING) ||
-        (dwCurrentState == SERVICE_STOPPED)) ? 
-        0:dwCheckPoint++;
+            (dwCurrentState == SERVICE_STOPPED)) ?
+        0 : dwCheckPoint++;
 
     // Report the status of the service to the SCM.
     ::SetServiceStatus(m_statusHandle, &m_status);
@@ -610,7 +610,7 @@ void CServiceBase::WriteEventLogEntry(LPCWSTR pszMessage, WORD wType)
             0,                     // No binary data
             lpszStrings,           // Array of strings
             NULL                   // No binary data
-            );
+        );
 
         DeregisterEventSource(hEventSource);
     }
@@ -628,9 +628,9 @@ void CServiceBase::WriteEventLogEntry(LPCWSTR pszMessage, WORD wType)
 //
 void CServiceBase::WriteErrorLogEntry(LPCWSTR pszFunction, DWORD dwError /*= GetLastError()*/)
 {
-    dwError = GetLastError(); 
+    dwError = GetLastError();
     TCHAR szMessage[260];
-    LPCTSTR pszFormat = TEXT("%s failed w/err 0x%08lx"); 
+    LPCTSTR pszFormat = TEXT("%s failed w/err 0x%08lx");
     StringCchPrintf(szMessage, ARRAYSIZE(szMessage), pszFormat, pszFunction, dwError);
     WriteEventLogEntry(szMessage, EVENTLOG_ERROR_TYPE);
 }

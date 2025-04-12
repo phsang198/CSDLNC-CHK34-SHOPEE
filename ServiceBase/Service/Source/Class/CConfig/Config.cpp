@@ -38,7 +38,7 @@ std::string Config::getConfig()
 		Poco::Logger::root().information("Can't open Config file", __FILE__, __LINE__);
 		return "";
 	}
-	if (!parse()) return "";
+ 	if (!parse()) return "";
 
 	return _config;
 }

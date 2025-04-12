@@ -19,12 +19,12 @@
 			"description": "database stores data of building and others",
 			"parameters": {
 				"database_name": "shopee",
-				"host": "127.0.0.1",
+				"host": "localhost",
 				"port": 5432,
 				"user": "postgres",
 				"password": "postgres"
 			}
-		}
+		},
 		{
 			"type": "Error code",
 			"description": "Erorr code and it's description",

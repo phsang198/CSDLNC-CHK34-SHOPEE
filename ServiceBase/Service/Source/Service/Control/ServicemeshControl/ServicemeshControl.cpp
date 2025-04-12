@@ -7,7 +7,7 @@
 #include "CConfig/Config.h"
 #include "Control/MainControl/IDNService.h" 
 
-void CIDNService::API_SERVICEMESH()
+void CIDNService::API()
 {
 	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/healthy").methods("GET"_method)
@@ -15,7 +15,6 @@ void CIDNService::API_SERVICEMESH()
 			{
 				json kq;
 				kq["status"] = "OK";
-				kq["requested_at"] = mesh::getISO8601Timestamp();
 
 				std::ostringstream oss;
 				oss << kq;
@@ -42,13 +41,9 @@ void CIDNService::API_SERVICEMESH()
 		([this](const crow::request& req)
 			{
 				json json;
-				json["summary"].merge_patch(json::parse(mesh::config));
 
-				json["summary"]["created"] = mesh::created;
 				json["summary"]["config"] = json::parse(Config::getConfig());
-				json["summary"]["host"] = mesh::thishost;
 				json["status"] = "OK";
-				json["requested_at"] = mesh::getISO8601Timestamp();
 
 				std::ostringstream oss;
 				oss << json;

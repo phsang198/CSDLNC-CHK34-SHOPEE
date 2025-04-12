@@ -141,7 +141,6 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\Class\Inc\Task\task_impl.cpp" />
-    <ClCompile Include="Source\Class\License\LicenseManager.cpp" />
     <ClCompile Include="Source\Class\CConfig\Config.cpp" />
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionManager.cpp" />
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionPool.cpp" />
@@ -832,9 +831,6 @@ xcopy /E /Y /I "$(ProjectDir)Lib\openssl\bin\*.*" "$(OutDir)"
     <ClInclude Include="Source\Class\Inc\Noncopyable\noncopyable.hpp" />
     <ClInclude Include="Source\Class\Inc\Task\task_impl.hpp" />
     <ClInclude Include="Source\Class\Inc\Task\threadpool.hpp" />
-    <ClInclude Include="Source\Class\License\licensecc_properties.h" />
-    <ClInclude Include="Source\Class\License\LicenseManager.h" />
-    <ClInclude Include="Source\Class\License\public_key.h" />
     <ClInclude Include="Source\Class\POI\PoiManager.h" />
     <ClInclude Include="Source\Class\CConfig\Config.h" />
     <ClInclude Include="Source\Class\ConnectionPool\ConnectionPool.h" />

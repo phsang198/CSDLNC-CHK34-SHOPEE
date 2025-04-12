@@ -63,9 +63,6 @@
     <ClCompile Include="Source\Class\ConnectionPool\ConnectionManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Class\License\LicenseManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Class\UUID\UuidGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2133,15 +2130,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\Building3d\building3d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\License\licensecc_properties.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\License\LicenseManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Class\License\public_key.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Class\UUID\UuidGenerator.h">

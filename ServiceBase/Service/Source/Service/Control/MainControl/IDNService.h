@@ -21,7 +21,6 @@
 #include "ServiceBase/ServiceBase.h"
 #include "Model/CModel/Model.h"
 #include "S3W/S3Wrapper.h"
-#include "License/LicenseManager.h"
 #include "Poco/Zip/Compress.h"
 
 #include "Validate/Validate.h"
@@ -85,7 +84,6 @@ private:
 
 	//crow::SimpleApp app;
 	crow::App<crow::CORSHandler,SecurityMiddleware> app;
-	std::shared_ptr<CLicenseManager>	_pLicenseMngr;
 	static CIDNService* m_instance;
 
 	CModel m_Model;
@@ -128,8 +126,6 @@ public:
 	
 
 
-public:
-	std::shared_ptr<CLicenseManager> GetLicenseManager() { return _pLicenseMngr; }
 
 protected:
 	void onDone(const void*, const Poco::Zip::ZipLocalFileHeader& hdr);
