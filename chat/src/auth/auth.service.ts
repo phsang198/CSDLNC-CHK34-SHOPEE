@@ -63,7 +63,6 @@ export class AuthService {
     if (createOne) {
       const payload = {
         email: createOne.email,
-        sub: createOne._id,
       };
       return {
         access_token: this.jwtService.sign(payload),

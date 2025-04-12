@@ -9,18 +9,22 @@ import { ChatsModule } from './chats/chats.module';
 import { AuthModule } from './auth/auth.module';
 import { MessagesModule } from './messages/messages.module';
 import { RefundModule } from './refund/refund.module';
+import { ArangoDBModule } from './arangodb';
+import { ComplaintModule } from './complaints/complaint.module';
 
 @Module({
   controllers: [AppController],
   providers: [AppService, AppGateway],
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.CHAT_DB),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
+    ArangoDBModule,
     UsersModule,
     ChatsModule,
     AuthModule,
     MessagesModule,
     RefundModule,
+    ComplaintModule,
   ],
 })
 export class AppModule {}

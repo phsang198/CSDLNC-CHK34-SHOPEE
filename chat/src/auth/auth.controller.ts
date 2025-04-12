@@ -10,7 +10,6 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Body() loginUserDto: LoginUserDto) {
     return await this.authService.login(loginUserDto);

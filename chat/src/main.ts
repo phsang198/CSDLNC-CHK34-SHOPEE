@@ -7,6 +7,13 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // Enable CORS
+  app.enableCors({
+    origin: 'http://localhost:3000', // Allow requests from this origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Allowed HTTP methods
+    // allowedHeaders: 'Content-Type,Authorization', // Allowed headers
+    // credentials: true, // Allow cookies or credentials (if needed)
+  });
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));

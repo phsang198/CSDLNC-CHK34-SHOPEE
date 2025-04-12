@@ -3,6 +3,7 @@ import { ChatsService } from './chats.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { CurrentUser } from 'src/decorator/current-user.decorator';
 
 @ApiTags('chats')
 @Controller('chats')
@@ -20,8 +21,9 @@ export class ChatsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  async getAllChatsByUserId(@Param(':id') id: string) {
-    return await this.chatsService.findAllChats(id);
+  @Get('/')
+  async getAllChatsByUserId(@CurrentUser() user: any) {
+    console.log(user.sub);
+    return await this.chatsService.findAllChats(user?.sub);
   }
 }
