@@ -1,9 +1,10 @@
 com\mtth\shopee\service\CartService.class
 com\mtth\shopee\model\SearchLogResponse.class
-com\mtth\shopee\controller\SearchLogController.class
-com\mtth\shopee\model\CartItem.class
 com\mtth\shopee\model\CartSummary.class
 com\mtth\shopee\model\SearchLogRequest.class
 com\mtth\shopee\SpringBootProjectApplication.class
-com\mtth\shopee\service\SearchLogService.class
 com\mtth\shopee\controller\CartController.class
+com\mtth\shopee\controller\SearchLogController.class
+com\mtth\shopee\model\CartItem.class
+com\mtth\shopee\service\SearchLogService.class
+com\mtth\shopee\controller\CassandraAggregator.class

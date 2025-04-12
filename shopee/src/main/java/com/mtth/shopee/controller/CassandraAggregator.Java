@@ -13,6 +13,10 @@ import java.util.Map;
 @Component
 public class CassandraAggregator {
 
+    public CassandraAggregator() {
+        System.out.println("✅ CassandraAggregator bean created!");
+    }
+
     @Scheduled(fixedRate = 1800000) // 30 phút (30 phút = 30 * 60 * 1000 ms)
     public void aggregateData() {
         System.out.println("🔄 Starting Cassandra aggregation...");
@@ -26,13 +30,17 @@ public class CassandraAggregator {
 
             // Lấy ngày hiện tại
             LocalDate searchDate = LocalDate.now();
+            // searchDate = LocalDate.parse("2025-04-05");
 
             // 2. Query data từ toàn bộ bảng search_logs_by_user_date
-            String selectQuery = "SELECT search_query FROM search_logs_by_user_date WHERE search_date = ?";
+            String selectQuery = "SELECT search_query FROM search_logs_by_user_date WHERE search_date = ? ALLOW FILTERING";
+
             PreparedStatement preparedSelect = session.prepare(selectQuery);
             BoundStatement boundSelect = preparedSelect.bind(searchDate);
 
             ResultSet resultSet = session.execute(boundSelect);
+
+            System.out.println("🔄 Aggregating data for date: " + resultSet);
 
             // 3. Đếm số lần xuất hiện của mỗi search_query
             Map<String, Integer> keywordCounts = new HashMap<>();

@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/search")
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin(origins = "http://localhost:3000/api/search")
 public class SearchLogController {
 
     private final SearchLogService searchLogService;
