@@ -1,104 +1,100 @@
 #include "pch.h"
 #include "ConnectionPool.h"
-#include <condition_variable>
-#include <thread>
-#include <chrono>
-#include <atomic>
-using namespace std::chrono_literals;
-//Mutex pool 
-std::condition_variable cv;
-std::mutex cv_m;
-
-int CConnectionPool::size = 0;
-double CConnectionPool::m_timeout = 0;
-std::string CConnectionPool::db_path;
-
-std::queue<GDALDataset*> CConnectionPool::cData;
-std::vector<GDALDataset*> CConnectionPool::m_pData;
-
-CConnectionPool::~CConnectionPool()
+//-----------------------------------------------------------------------------------------------------------
+int ConnectionManager::QueryOrther(std::string query, std::string& Id, std::string rRes)
 {
-	//Exit connection 
-	for (int i = 0; i < m_pData.size(); ++i)
-		GDALClose(m_pData.at(i));
-	std::queue<GDALDataset*> empty;
-	std::swap(cData, empty);
-}
-
-void CConnectionPool::createPool(std::string dbName, std::string dbHost, int dbPort, std::string dbUser, std::string dbPassword, double timeout)
-{
-	GDALAllRegister();
-	for (int i = 0; i < size; ++i)
+	GDALDataset* geDS = CConnectionPool::getConnection();
+	if (geDS == NULL)
 	{
-		GDALDataset* geDS;
-		std::string path = "PG:dbname=$dbName host=$dbHost port=$dbPort user=$dbUser password =$dbPassword";
-		StringProcess::Replace(path, "$dbName", dbName);
-		StringProcess::Replace(path, "$dbHost", dbHost);
-		StringProcess::Replace(path, "$dbPort", std::to_string(dbPort));
-		StringProcess::Replace(path, "$dbUser", dbUser);
-		StringProcess::Replace(path, "$dbPassword", dbPassword);
-		geDS = (GDALDataset*)(GDALDataset::Open(path.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL));
-		if (geDS)
+		return 301;
+	}
+	OGRLayer* poLayer = geDS->ExecuteSQL(query.c_str(), NULL, "");
+
+	if (poLayer == NULL)
+	{
+		int errorCode = CPLGetLastErrorNo();
+		const char* errorMsg = CPLGetLastErrorMsg();
+		std::string errorMessage(errorMsg);
+
+		CConnectionPool::addConnection(geDS);
+
+		if (errorMessage != "")
 		{
-			CPLSetConfigOption("GDAL_HTTP_TIMEOUT", "5");
-			CPLSetConfigOption("PGCLIENTENCODING", "UTF8 timeout=3");
-			cData.push(geDS);
-			m_pData.push_back(geDS);
+			//msg = "invalid database connection";
+			if (errorMessage == "no connection to the server\n")
+			{
+				CConnectionPool::reConnect(geDS);
+				return 301;
+			}
+			return 302;
 		}
-		db_path = path;
+		else
+		{
+			return 303;
+		}
 	}
-	m_timeout = timeout;
-}
-
-void CConnectionPool::reConnect(GDALDataset*& connection)
-{
-	std::unique_lock<std::mutex> lk(cv_m);
-
-	GDALClose(connection);
-
-	connection = (GDALDataset*)(GDALDataset::Open(db_path.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL));
-	if (connection)
+	if (poLayer != NULL)
 	{
-		CPLSetConfigOption("GDAL_HTTP_TIMEOUT", "5");
-		CPLSetConfigOption("PGCLIENTENCODING", "UTF8 timeout=3");
-		cData.push(connection);
-		m_pData.push_back(connection);
+		if (poLayer->GetFeatureCount() == 0)
+		{
+			geDS->ReleaseResultSet(poLayer);
+			CConnectionPool::addConnection(geDS);
+			return 303;
+		}
 	}
-}
 
-void CConnectionPool::resetPool()
-{
-	std::lock_guard<std::mutex> lk(cv_m);
-	if (cData.size() != 0) return;
-	for (int i = 0; i < m_pData.size(); ++i) cData.push(m_pData.at(i));
-	cv.notify_all();
-}
-
-void CConnectionPool::addConnection(GDALDataset* connection)
-{
-	std::lock_guard<std::mutex> lk(cv_m);
-	if (cData.size() == size) return;
-	if (connection != NULL)
-		cData.push(connection);
-	cv.notify_all();
-}
-
-GDALDataset* CConnectionPool::getConnection()
-{
-	std::unique_lock<std::mutex> lk(cv_m);
-	if (cv.wait_for(lk, m_timeout * 1ms, [] {return cData.size() != 0;  }))
+	OGRFeature* poFeature = poLayer->GetNextFeature();
+	if (poFeature != NULL)
 	{
-		auto geDS = cData.front();
-		cData.pop();
-		return geDS;
+		Id = poFeature->GetFieldAsString(rRes.c_str());					// co returning
 	}
-	else
+
+	geDS->ReleaseResultSet(poLayer);
+	CConnectionPool::addConnection(geDS);
+	return 200;
+}
+int ConnectionManager::QueryGet(GDALDataset*& geDS, OGRLayer*& poLayer, std::string& query)
+{
+	geDS = CConnectionPool::getConnection();
+	if (geDS == NULL)
 	{
-		return NULL;
+		return 301;
 	}
+	poLayer = geDS->ExecuteSQL(query.c_str(), NULL, "");
+	//Sleep(5000); 
+
+	if (poLayer == NULL)
+	{
+		int errorCode = CPLGetLastErrorNo();
+		const char* errorMsg = CPLGetLastErrorMsg();
+		std::string errorMessage(errorMsg);
+
+		CConnectionPool::addConnection(geDS);
+
+		if (errorMessage != "")
+		{
+			//msg = "invalid database connection";
+			if (errorMessage == "no connection to the server\n")
+			{
+				CConnectionPool::reConnect(geDS);
+				return 301;
+			}
+			return 302;
+		}
+		else
+		{
+			return 303;
+		}
+	}
+	if (poLayer != NULL)
+	{
+		if (poLayer->GetFeatureCount() == 0)
+		{
+			geDS->ReleaseResultSet(poLayer);
+			return 303;
+		}
+	}
+
+	return 200;
 }
 
-bool CConnectionPool::isEmpty()
-{
-	return cData.size() == 0;
-}

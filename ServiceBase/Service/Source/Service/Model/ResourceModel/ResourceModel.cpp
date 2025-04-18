@@ -106,9 +106,6 @@ int ResourceModel::addResource(std::string rscname, RESOURCETYPE& _Resource)
 		idColumn = "madc";
 		StringProcess::ReplaceAll(query, "$tendc", tmp.TenDC);
 	}
-	else {
-		return 404;
-	}
 
 	return ConnectionManager::QueryOrther(query, id, idColumn);
 }

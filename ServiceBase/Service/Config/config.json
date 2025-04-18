@@ -19,7 +19,7 @@
 			"description": "database stores data of building and others",
 			"parameters": {
 				"database_name": "shopee",
-				"host": "10.222.3.84",
+				"host": "localhost",
 				"port": 5432,
 				"user": "postgres",
 				"password": "postgres"

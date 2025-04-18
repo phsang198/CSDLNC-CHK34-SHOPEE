@@ -58,8 +58,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;CROW_MAIN;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;USE_IMPORT_EXPORT;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;WIN32;%(PreprocessorDefinitions);NOMINMAX;BS_THREAD_POOL_ENABLE_PRIORITY;_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)Lib\boost-optional\include;$(ProjectDir)Lib\boost-algorithm\include;$(ProjectDir)Lib\boost-asio\include;$(ProjectDir)Lib\openssl\include;$(ProjectDir)Lib\nlohmann-json\include;;$(ProjectDir)Lib\gdal\include;$(ProjectDir)Lib\crow\include;$(ProjectDir)Lib\aws\include;$(ProjectDir)Lib\cpr\include;$(ProjectDir)Lib\date\include;$(ProjectDir)Lib\poco\include;$(ProjectDir)Lib\rapidjson\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\json\include;$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Service;$(ProjectDir)Source\Class;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir);$(ProjectDir)Source;$(ProjectDir)Source\Service;$(ProjectDir)Source\Class;$(ProjectDir)Lib\boost-optional\include;$(ProjectDir)Lib\boost-algorithm\include;$(ProjectDir)Lib\boost-asio\include;$(ProjectDir)Lib\openssl\include;$(ProjectDir)Lib\nlohmann-json\include;;$(ProjectDir)Lib\gdal\include;$(ProjectDir)Lib\crow\include;$(ProjectDir)Lib\aws\include;$(ProjectDir)Lib\cpr\include;$(ProjectDir)Lib\date\include;$(ProjectDir)Lib\poco\include;$(ProjectDir)Lib\rapidjson\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
