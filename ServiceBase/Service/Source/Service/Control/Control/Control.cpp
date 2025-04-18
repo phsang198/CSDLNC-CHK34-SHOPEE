@@ -1,5 +1,4 @@
-﻿#pragma once 
-#include "pch.h"
+﻿#include "pch.h"
 #include <iomanip>
 #include <sstream>
 #include <chrono>
@@ -7,40 +6,8 @@
 #include "CConfig/Config.h"
 #include "Control/MainControl/IDNService.h" 
 
-
 void CIDNService::API_KhachHang()
 {
-	//--------------------------------------------------------------------------------------------------------------------------
-	CROW_ROUTE(app, "/khachhang").methods("GET"_method)
-		([this](const crow::request& req)
-			{
-				// Lấy tất cả khách hàng
-
-				json result;
-				result["status"] = (!cache::lstKhachHang.empty()) ? "OK" : "ERROR";
-				result["data"] = json::array();
-
-				for (const auto& [id,kh] : cache::lstKhachHang)
-				{
-					json item;
-					item["MaKH"] = kh.MaKH;
-					item["MatKhau"] = kh.MatKhau;
-					item["Ten"] = kh.Ten;
-					item["Sdt"] = kh.Sdt;
-					item["Email"] = kh.Email;
-					item["NgayDK"] = kh.NgayDK;
-					item["MaPTTT"] = kh.MaPTTT;
-					result["data"].push_back(item);
-				}
-
-				std::ostringstream oss;
-				oss << result;
-				crow::response res(oss.str()); 
-				response::add_header(res);
-				res.set_header("content-type", "application/json");
-				return res;
-			});
-
 	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/khachhang").methods("POST"_method)
 		([this](const crow::request& req)
@@ -55,10 +22,17 @@ void CIDNService::API_KhachHang()
 				kh.Email = x["Email"].s();
 				kh.NgayDK = x["NgayDK"].s();
 				kh.MaPTTT = x["MaPTTT"].i();
-				kh.MaKH = rand() % 100 + 1;
-				cache::lstKhachHang[kh.MaKH] = kh;
 				RESOURCETYPE tmp = kh;
-				int error = m_ResourceModel.addResource("khachhang", tmp); 
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "khachhang", tmp);
+				if (error == OK)
+				{
+					json kq;
+					kh.MaKH = std::stoi(id);
+					kq["MaKH"] = kh.MaKH;
+
+					cache::lstKhachHang[kh.MaKH] = kh;
+				}
 				return RESP(error);
 			});
 
@@ -80,7 +54,36 @@ void CIDNService::API_KhachHang()
 				cache::lstKhachHang[kh.MaKH] = kh;
 				RESOURCETYPE tmp = kh;
 				int error = m_ResourceModel.updateResource("khachhang", tmp);
-				return RESP(200);
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/khachhang").methods("GET"_method)
+		([this](const crow::request& req)
+			{
+				json result;
+				result["status"] = (!cache::lstKhachHang.empty()) ? "OK" : "ERROR";
+				result["data"] = json::array();
+
+				for (const auto& [id, kh] : cache::lstKhachHang)
+				{
+					json item;
+					item["MaKH"] = kh.MaKH;
+					item["MatKhau"] = kh.MatKhau;
+					item["Ten"] = kh.Ten;
+					item["Sdt"] = kh.Sdt;
+					item["Email"] = kh.Email;
+					item["NgayDK"] = kh.NgayDK;
+					item["MaPTTT"] = kh.MaPTTT;
+					result["data"].push_back(item);
+				}
+
+				std::ostringstream oss;
+				oss << result;
+				crow::response res(oss.str());
+				response::add_header(res);
+				res.set_header("content-type", "application/json");
+				return res;
 			});
 
 	//--------------------------------------------------------------------------------------------------------------------------
@@ -91,12 +94,64 @@ void CIDNService::API_KhachHang()
 				if (!x) return RESP(150);
 
 				int maKH = x["MaKH"].i();
-				cache::lstKhachHang.erase(maKH); 
+				cache::lstKhachHang.erase(maKH);
 				return RESP(200);
 			});
 }
+
 void CIDNService::API_NguoiBan()
 {
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/nguoiban").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				NguoiBan nb;
+				nb.Ten = x["Ten"].s();
+				nb.MST = x["MST"].s();
+				nb.Sdt = x["Sdt"].s();
+				nb.Email = x["Email"].s();
+				nb.NgayDK = x["NgayDK"].s();
+				nb.MatKhau = x["MatKhau"].s();
+				nb.MaDC = x["MaDC"].i();
+				RESOURCETYPE tmp = nb;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "nguoiban", tmp);
+				if (error == OK)
+				{
+					json kq;
+					nb.MaNB = std::stoi(id);
+					kq["MaNB"] = nb.MaNB;
+
+					cache::lstNguoiBan[nb.MaNB] = nb;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/nguoiban").methods("PUT"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				NguoiBan nb;
+				nb.MaNB = x["MaNB"].i();
+				nb.Ten = x["Ten"].s();
+				nb.MST = x["MST"].s();
+				nb.Sdt = x["Sdt"].s();
+				nb.Email = x["Email"].s();
+				nb.NgayDK = x["NgayDK"].s();
+				nb.MatKhau = x["MatKhau"].s();
+				nb.MaDC = x["MaDC"].i();
+				cache::lstNguoiBan[nb.MaNB] = nb;
+				RESOURCETYPE tmp = nb;
+				int error = m_ResourceModel.updateResource("nguoiban", tmp);
+				return RESP(error);
+			});
+
 	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/nguoiban").methods("GET"_method)
 		([this](const crow::request& req)
@@ -128,53 +183,6 @@ void CIDNService::API_NguoiBan()
 			});
 
 	//--------------------------------------------------------------------------------------------------------------------------
-	CROW_ROUTE(app, "/nguoiban").methods("POST"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				NguoiBan nb;
-				nb.MaNB = rand() % 100 + 1;
-				nb.Ten = x["Ten"].s();
-				nb.MST = x["MST"].s();
-				nb.Sdt = x["Sdt"].s();
-				nb.Email = x["Email"].s();
-				nb.NgayDK = x["NgayDK"].s();
-				nb.MatKhau = x["MatKhau"].s();
-				nb.MaDC = x["MaDC"].i();
-
-				cache::lstNguoiBan[nb.MaNB] = nb;
-				RESOURCETYPE tmp = nb;
-				int error = m_ResourceModel.addResource("nguoiban", tmp);
-
-				return RESP(200);
-			});
-
-	//--------------------------------------------------------------------------------------------------------------------------
-	CROW_ROUTE(app, "/nguoiban").methods("PUT"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				NguoiBan nb;
-				nb.MaNB = x["MaNB"].i();
-				nb.Ten = x["Ten"].s();
-				nb.MST = x["MST"].s();
-				nb.Sdt = x["Sdt"].s();
-				nb.Email = x["Email"].s();
-				nb.NgayDK = x["NgayDK"].s();
-				nb.MatKhau = x["MatKhau"].s();
-				nb.MaDC = x["MaDC"].i();
-
-				cache::lstNguoiBan[nb.MaNB] = nb;
-				RESOURCETYPE tmp = nb;
-				int error = m_ResourceModel.updateResource("nguoiban", tmp);
-				return RESP(200);
-			});
-
-	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/nguoiban").methods("DELETE"_method)
 		([this](const crow::request& req)
 			{
@@ -188,7 +196,54 @@ void CIDNService::API_NguoiBan()
 }
 void CIDNService::API_SanPham()
 {
-	// GET
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/sanpham").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				SanPham sp;
+				sp.Ten = x["Ten"].s();
+				sp.NgayNhapKho = x["NgayNhapKho"].s();
+				sp.SoLuong = x["SoLuong"].i();
+				sp.GiaBan = x["GiaBan"].d();
+				sp.MaNB = x["MaNB"].i();
+				RESOURCETYPE tmp = sp;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "sanpham", tmp);
+				if (error == OK)
+				{
+					json kq;
+					sp.MaSP = std::stoi(id);
+					kq["MaSP"] = sp.MaSP;
+
+					cache::lstSanPham[sp.MaSP] = sp;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/sanpham").methods("PUT"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				SanPham sp;
+				sp.MaSP = x["MaSP"].i();
+				sp.Ten = x["Ten"].s();
+				sp.NgayNhapKho = x["NgayNhapKho"].s();
+				sp.SoLuong = x["SoLuong"].i();
+				sp.GiaBan = x["GiaBan"].d();
+				sp.MaNB = x["MaNB"].i();
+				cache::lstSanPham[sp.MaSP] = sp;
+				RESOURCETYPE tmp = sp;
+				int error = m_ResourceModel.updateResource("sanpham", tmp);
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/sanpham").methods("GET"_method)
 		([this](const crow::request& req)
 			{
@@ -216,49 +271,7 @@ void CIDNService::API_SanPham()
 				return res;
 			});
 
-	// POST
-	CROW_ROUTE(app, "/sanpham").methods("POST"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				SanPham sp;
-				sp.MaSP = rand() % 1000 + 1;
-				sp.Ten = x["Ten"].s();
-				sp.NgayNhapKho = x["NgayNhapKho"].s();
-				sp.SoLuong = x["SoLuong"].i();
-				sp.GiaBan = x["GiaBan"].d();
-				sp.MaNB = x["MaNB"].i();
-
-				cache::lstSanPham[sp.MaSP] = sp;
-				RESOURCETYPE tmp = sp;
-				int error = m_ResourceModel.addResource("sanpham", tmp);
-				return RESP(200);
-			});
-
-	// PUT
-	CROW_ROUTE(app, "/sanpham").methods("PUT"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				SanPham sp;
-				sp.MaSP = x["MaSP"].i();
-				sp.Ten = x["Ten"].s();
-				sp.NgayNhapKho = x["NgayNhapKho"].s();
-				sp.SoLuong = x["SoLuong"].i();
-				sp.GiaBan = x["GiaBan"].d();
-				sp.MaNB = x["MaNB"].i();
-
-				cache::lstSanPham[sp.MaSP] = sp;
-				RESOURCETYPE tmp = sp;
-				int error = m_ResourceModel.updateResource("sanpham", tmp);
-				return RESP(200);
-			});
-
-	// DELETE
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/sanpham").methods("DELETE"_method)
 		([this](const crow::request& req)
 			{
@@ -270,9 +283,67 @@ void CIDNService::API_SanPham()
 				return RESP(200);
 			});
 }
+
 void CIDNService::API_DonHang()
 {
-	// GET
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/donhang").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				DonHang dh;
+				dh.NgayDat = x["NgayDat"].s();
+				dh.TrangThai = x["TrangThai"].s();
+				dh.MaDC = x["MaDC"].i();
+				dh.MaKH = x["MaKH"].i();
+				dh.MaPTTT = x["MaPTTT"].i();
+				dh.TrangThaiThanhToan = x["TrangThaiThanhToan"].s();
+				dh.MaVC = x["MaVC"].i();
+				dh.MaVCNB = x["MaVCNB"].i();
+				dh.MaPTVC = x["MaPTVC"].i();
+				dh.TongTien = x["TongTien"].d();
+				RESOURCETYPE tmp = dh;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "donhang", tmp);
+				if (error == OK)
+				{
+					json kq;
+					dh.MaDH = std::stoi(id);
+					kq["MaDH"] = dh.MaDH;
+
+					cache::lstDonHang[dh.MaDH] = dh;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/donhang").methods("PUT"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				DonHang dh;
+				dh.MaDH = x["MaDH"].i();
+				dh.NgayDat = x["NgayDat"].s();
+				dh.TrangThai = x["TrangThai"].s();
+				dh.MaDC = x["MaDC"].i();
+				dh.MaKH = x["MaKH"].i();
+				dh.MaPTTT = x["MaPTTT"].i();
+				dh.TrangThaiThanhToan = x["TrangThaiThanhToan"].s();
+				dh.MaVC = x["MaVC"].i();
+				dh.MaVCNB = x["MaVCNB"].i();
+				dh.MaPTVC = x["MaPTVC"].i();
+				dh.TongTien = x["TongTien"].d();
+				cache::lstDonHang[dh.MaDH] = dh;
+				RESOURCETYPE tmp = dh;
+				int error = m_ResourceModel.updateResource("donhang", tmp);
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/donhang").methods("GET"_method)
 		([this](const crow::request& req)
 			{
@@ -305,55 +376,7 @@ void CIDNService::API_DonHang()
 				return res;
 			});
 
-	// POST
-	CROW_ROUTE(app, "/donhang").methods("POST"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				DonHang dh;
-				dh.MaDH = rand() % 1000 + 1;
-				dh.NgayDat = x["NgayDat"].s();
-				dh.TrangThai = x["TrangThai"].s();
-				dh.MaDC = x["MaDC"].i();
-				dh.MaKH = x["MaKH"].i();
-				dh.MaPTTT = x["MaPTTT"].i();
-				dh.TrangThaiThanhToan = x["TrangThaiThanhToan"].s();
-				dh.MaVC = x["MaVC"].i();
-				dh.MaVCNB = x["MaVCNB"].i();
-				dh.MaPTVC = x["MaPTVC"].i();
-				dh.TongTien = x["TongTien"].d();
-
-				cache::lstDonHang[dh.MaDH] = dh;
-				return RESP(200);
-			});
-
-	// PUT
-	CROW_ROUTE(app, "/donhang").methods("PUT"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				DonHang dh;
-				dh.MaDH = x["MaDH"].i();
-				dh.NgayDat = x["NgayDat"].s();
-				dh.TrangThai = x["TrangThai"].s();
-				dh.MaDC = x["MaDC"].i();
-				dh.MaKH = x["MaKH"].i();
-				dh.MaPTTT = x["MaPTTT"].i();
-				dh.TrangThaiThanhToan = x["TrangThaiThanhToan"].s();
-				dh.MaVC = x["MaVC"].i();
-				dh.MaVCNB = x["MaVCNB"].i();
-				dh.MaPTVC = x["MaPTVC"].i();
-				dh.TongTien = x["TongTien"].d();
-
-				cache::lstDonHang[dh.MaDH] = dh;
-				return RESP(200);
-			});
-
-	// DELETE
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/donhang").methods("DELETE"_method)
 		([this](const crow::request& req)
 			{
@@ -367,7 +390,28 @@ void CIDNService::API_DonHang()
 }
 void CIDNService::API_ChiTietDonHang()
 {
-	// GET
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/chitietdonhang").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				ChiTietDonHang ctdh;
+				ctdh.MaDH = x["MaDH"].i();
+				ctdh.MaSP = x["MaSP"].i();
+				ctdh.SoLuong = x["SoLuong"].i();
+				RESOURCETYPE tmp = ctdh;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "chitietdonhang", tmp);
+				if (error == OK)
+				{
+					cache::lstChiTietDonHang[ctdh.MaDH] = ctdh;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/chitietdonhang").methods("GET"_method)
 		([this](const crow::request& req)
 			{
@@ -392,23 +436,7 @@ void CIDNService::API_ChiTietDonHang()
 				return res;
 			});
 
-	// POST
-	CROW_ROUTE(app, "/chitietdonhang").methods("POST"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				ChiTietDonHang ctdh;
-				ctdh.MaDH = x["MaDH"].i();
-				ctdh.MaSP = x["MaSP"].i();
-				ctdh.SoLuong = x["SoLuong"].i();
-
-				cache::lstChiTietDonHang[ctdh.MaDH] = ctdh;
-				return RESP(200);
-			});
-
-	// DELETE
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/chitietdonhang").methods("DELETE"_method)
 		([this](const crow::request& req)
 			{
@@ -420,9 +448,37 @@ void CIDNService::API_ChiTietDonHang()
 				return RESP(200);
 			});
 }
+
 void CIDNService::API_Voucher()
 {
-	// GET
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/voucher").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				Voucher vc;
+				vc.TenVC = x["TenVC"].s();
+				vc.GiaTri = x["GiaTri"].d();
+				vc.SoLuong = x["SoLuong"].i();
+				vc.NgayHetHan = x["NgayHetHan"].s();
+				vc.NgayKhaDung = x["NgayKhaDung"].s();
+				RESOURCETYPE tmp = vc;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "voucher", tmp);
+				if (error == OK)
+				{
+					json kq;
+					vc.MaVC = std::stoi(id);
+					kq["MaVC"] = vc.MaVC;
+
+					cache::lstVoucher[vc.MaVC] = vc;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/voucher").methods("GET"_method)
 		([this](const crow::request& req)
 			{
@@ -450,26 +506,7 @@ void CIDNService::API_Voucher()
 				return res;
 			});
 
-	// POST
-	CROW_ROUTE(app, "/voucher").methods("POST"_method)
-		([this](const crow::request& req)
-			{
-				auto x = crow::json::load(req.body);
-				if (!x) return RESP(150);
-
-				Voucher vc;
-				vc.MaVC = rand() % 1000 + 1;
-				vc.TenVC = x["TenVC"].s();
-				vc.GiaTri = x["GiaTri"].d();
-				vc.SoLuong = x["SoLuong"].i();
-				vc.NgayHetHan = x["NgayHetHan"].s();
-				vc.NgayKhaDung = x["NgayKhaDung"].s();
-
-				cache::lstVoucher[vc.MaVC] = vc;
-				return RESP(200);
-			});
-
-	// DELETE
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/voucher").methods("DELETE"_method)
 		([this](const crow::request& req)
 			{
@@ -481,9 +518,10 @@ void CIDNService::API_Voucher()
 				return RESP(200);
 			});
 }
+
 void CIDNService::API_VoucherNB()
 {
-	// GET
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/vouchernb").methods("GET"_method)
 		([this](const crow::request& req)
 			{
@@ -511,7 +549,7 @@ void CIDNService::API_VoucherNB()
 				return res;
 			});
 
-	// DELETE
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/vouchernb").methods("DELETE"_method)
 		([this](const crow::request& req)
 			{
@@ -523,9 +561,10 @@ void CIDNService::API_VoucherNB()
 				return RESP(200);
 			});
 }
+
 void CIDNService::API_ViVoucher()
 {
-	// GET
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/vivoucher").methods("GET"_method)
 		([this](const crow::request& req)
 			{
@@ -550,7 +589,7 @@ void CIDNService::API_ViVoucher()
 				return res;
 			});
 
-	// DELETE
+	//--------------------------------------------------------------------------------------------------------------------------
 	CROW_ROUTE(app, "/vivoucher").methods("DELETE"_method)
 		([this](const crow::request& req)
 			{
@@ -559,6 +598,185 @@ void CIDNService::API_ViVoucher()
 
 				int maVi = x["MaVi"].i();
 				cache::lstViVoucher.erase(maVi);
+				return RESP(200);
+			});
+}
+void CIDNService::API_PTVCNB()
+{
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/ptvcnb").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				PTVCNB ptvcnb;
+				ptvcnb.MaNB = x["MaNB"].i();
+				ptvcnb.MaPTVC = x["MaPTVC"].i();
+				RESOURCETYPE tmp = ptvcnb;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "ptvcnb", tmp);
+				if (error == OK)
+				{
+					cache::lstPTVCNB[ptvcnb.MaNB] = ptvcnb;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/ptvcnb").methods("GET"_method)
+		([this](const crow::request& req)
+			{
+				json result;
+				result["status"] = (!cache::lstPTVCNB.empty()) ? "OK" : "ERROR";
+				result["data"] = json::array();
+
+				for (const auto& [id, ptvcnb] : cache::lstPTVCNB)
+				{
+					json item;
+					item["MaNB"] = ptvcnb.MaNB;
+					item["MaPTVC"] = ptvcnb.MaPTVC;
+					result["data"].push_back(item);
+				}
+
+				std::ostringstream oss;
+				oss << result;
+				crow::response res(oss.str());
+				response::add_header(res);
+				res.set_header("content-type", "application/json");
+				return res;
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/ptvcnb").methods("DELETE"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				int maNB = x["MaNB"].i();
+				cache::lstPTVCNB.erase(maNB);
+				return RESP(200);
+			});
+}
+
+void CIDNService::API_ChiTietTT()
+{
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/chitiettt").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				ChiTietTT cttt;
+				cttt.MaKH = x["MaKH"].i();
+				cttt.MaPTTT = x["MaPTTT"].i();
+				RESOURCETYPE tmp = cttt;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "chitiettt", tmp);
+				if (error == OK)
+				{
+					cache::lstChiTietTT[cttt.MaKH] = cttt;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/chitiettt").methods("GET"_method)
+		([this](const crow::request& req)
+			{
+				json result;
+				result["status"] = (!cache::lstChiTietTT.empty()) ? "OK" : "ERROR";
+				result["data"] = json::array();
+
+				for (const auto& [id, cttt] : cache::lstChiTietTT)
+				{
+					json item;
+					item["MaKH"] = cttt.MaKH;
+					item["MaPTTT"] = cttt.MaPTTT;
+					result["data"].push_back(item);
+				}
+
+				std::ostringstream oss;
+				oss << result;
+				crow::response res(oss.str());
+				response::add_header(res);
+				res.set_header("content-type", "application/json");
+				return res;
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/chitiettt").methods("DELETE"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				int maKH = x["MaKH"].i();
+				cache::lstChiTietTT.erase(maKH);
+				return RESP(200);
+			});
+}
+
+void CIDNService::API_DiaChi()
+{
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/diachi").methods("POST"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				DiaChi dc;
+				dc.TenDC = x["TenDC"].s();
+				RESOURCETYPE tmp = dc;
+				std::string id = "";
+				int error = m_ResourceModel.addResource(id, "diachi", tmp);
+				if (error == OK)
+				{
+					json kq;
+					dc.MaDC = std::stoi(id);
+					kq["MaDC"] = dc.MaDC;
+
+					cache::lstDiaChi[dc.MaDC] = dc;
+				}
+				return RESP(error);
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/diachi").methods("GET"_method)
+		([this](const crow::request& req)
+			{
+				json result;
+				result["status"] = (!cache::lstDiaChi.empty()) ? "OK" : "ERROR";
+				result["data"] = json::array();
+
+				for (const auto& [id, dc] : cache::lstDiaChi)
+				{
+					json item;
+					item["MaDC"] = dc.MaDC;
+					item["TenDC"] = dc.TenDC;
+					result["data"].push_back(item);
+				}
+
+				std::ostringstream oss;
+				oss << result;
+				crow::response res(oss.str());
+				response::add_header(res);
+				res.set_header("content-type", "application/json");
+				return res;
+			});
+
+	//--------------------------------------------------------------------------------------------------------------------------
+	CROW_ROUTE(app, "/diachi").methods("DELETE"_method)
+		([this](const crow::request& req)
+			{
+				auto x = crow::json::load(req.body);
+				if (!x) return RESP(150);
+
+				int maDC = x["MaDC"].i();
+				cache::lstDiaChi.erase(maDC);
 				return RESP(200);
 			});
 }

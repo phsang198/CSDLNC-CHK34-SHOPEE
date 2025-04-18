@@ -202,4 +202,9 @@ void CIDNService::handleRoutes()
 	API_Voucher();
 	API_ViVoucher();
 	API_VoucherNB();
+
+
+	API_ChiTietTT();
+	API_PTVCNB();
+	API_DiaChi();
 }

@@ -124,6 +124,9 @@ public:
 	void API_ChiTietDonHang();
 	void API_Voucher();
 	void API_ViVoucher();
+	void API_ChiTietTT();
+	void API_PTVCNB();
+	void API_DiaChi();
 	void API_VoucherNB();
 
 public:

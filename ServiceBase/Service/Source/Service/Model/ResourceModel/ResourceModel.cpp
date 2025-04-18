@@ -26,11 +26,10 @@ ResourceModel::~ResourceModel()
 {
 }
 
-int ResourceModel::addResource(std::string rscname, RESOURCETYPE& _Resource)
+int ResourceModel::addResource(std::string& id, std::string rscname, RESOURCETYPE& _Resource)
 {
 	std::string query;
 	std::string idColumn;
-	std::string id;
 
 	if (rscname == "khachhang") {
 		auto tmp = std::get<KhachHang>(_Resource);
@@ -105,6 +104,24 @@ int ResourceModel::addResource(std::string rscname, RESOURCETYPE& _Resource)
 		query = R"(INSERT INTO diachi(tendc) VALUES ('$tendc') RETURNING madc)";
 		idColumn = "madc";
 		StringProcess::ReplaceAll(query, "$tendc", tmp.TenDC);
+	}
+	else if (rscname == "ptvcnb") {
+		auto tmp = std::get<PTVCNB>(_Resource);
+		query = R"(INSERT INTO ptvcnb(manb, maptvc)
+	           VALUES ($manb, $maptvc)
+	           RETURNING manb)";
+		idColumn = "manb";
+		StringProcess::ReplaceAll(query, "$manb", std::to_string(tmp.MaNB));
+		StringProcess::ReplaceAll(query, "$maptvc", std::to_string(tmp.MaPTVC));
+	}
+	else if (rscname == "chitiettt") {
+		auto tmp = std::get<ChiTietTT>(_Resource);
+		query = R"(INSERT INTO chitiettt(makh, mapttt)
+	           VALUES ($makh, $mapttt)
+	           RETURNING makh)";
+		idColumn = "makh";
+		StringProcess::ReplaceAll(query, "$makh", std::to_string(tmp.MaKH));
+		StringProcess::ReplaceAll(query, "$mapttt", std::to_string(tmp.MaPTTT));
 	}
 
 	return ConnectionManager::QueryOrther(query, id, idColumn);
@@ -186,6 +203,23 @@ int ResourceModel::updateResource(std::string rscname, RESOURCETYPE& _Resource)
 		StringProcess::ReplaceAll(query, "$madc", std::to_string(tmp.MaDC));
 		StringProcess::ReplaceAll(query, "$tendc", tmp.TenDC);
 	}
+	else if (rscname == "ptvcnb") {
+		auto tmp = std::get<PTVCNB>(_Resource);
+		query = R"(UPDATE ptvcnb SET maptvc = $maptvc
+	           WHERE manb = $manb RETURNING manb)";
+		idColumn = "manb";
+		StringProcess::ReplaceAll(query, "$manb", std::to_string(tmp.MaNB));
+		StringProcess::ReplaceAll(query, "$maptvc", std::to_string(tmp.MaPTVC));
+	}
+	else if (rscname == "chitiettt") {
+		auto tmp = std::get<ChiTietTT>(_Resource);
+		query = R"(UPDATE chitiettt SET mapttt = $mapttt
+	           WHERE makh = $makh RETURNING makh)";
+		idColumn = "makh";
+		StringProcess::ReplaceAll(query, "$makh", std::to_string(tmp.MaKH));
+		StringProcess::ReplaceAll(query, "$mapttt", std::to_string(tmp.MaPTTT));
+	}
+
 	return ConnectionManager::QueryOrther(query, id, idColumn);
 }
 int ResourceModel::getResource(std::string rscname,  std::vector<RESOURCETYPE>& lst_Resource)

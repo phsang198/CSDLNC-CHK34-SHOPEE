@@ -29,7 +29,6 @@ bool CModel::Connect(std::string dbName, std::string dbHost, int dbPort, std::st
 {
 	CConnectionPool::size = 30;
 	CConnectionPool::createPool(dbName, dbHost, dbPort, dbUser, dbPassword, 100);
-	return true;
 	return !CConnectionPool::isEmpty();
 }
 

@@ -13,7 +13,7 @@ public:
 	ResourceModel();
 	~ResourceModel();
 public:
-	int addResource(std::string rscname, RESOURCETYPE& _Resource);
+	int addResource(std::string&id , std::string rscname, RESOURCETYPE& _Resource);
 
 	int updateResource(std::string rscname, RESOURCETYPE& _Resource);
 

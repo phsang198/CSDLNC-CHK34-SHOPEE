@@ -27,29 +27,38 @@ CConnectionPool::~CConnectionPool()
 
 void CConnectionPool::createPool(std::string dbName, std::string dbHost, int dbPort, std::string dbUser, std::string dbPassword, double timeout)
 {
-	/*GDALAllRegister();
+	GDALAllRegister();
+	int successfulConnections = 0;
+	std::string path;
 	for (int i = 0; i < size; ++i)
 	{
 		GDALDataset* geDS;
-		std::string path = "PG:dbname=$dbName host=$dbHost port=$dbPort user=$dbUser password =$dbPassword";
+		path = "PG:dbname=$dbName host=$dbHost port=$dbPort user=$dbUser password=$dbPassword";
 		StringProcess::Replace(path, "$dbName", dbName);
 		StringProcess::Replace(path, "$dbHost", dbHost);
 		StringProcess::Replace(path, "$dbPort", std::to_string(dbPort));
 		StringProcess::Replace(path, "$dbUser", dbUser);
 		StringProcess::Replace(path, "$dbPassword", dbPassword);
-		geDS = (GDALDataset*)(GDALDataset::Open(path.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL));
+
+		geDS = (GDALDataset*)GDALOpenEx(path.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL);
 		if (geDS)
 		{
 			CPLSetConfigOption("GDAL_HTTP_TIMEOUT", "5");
 			CPLSetConfigOption("PGCLIENTENCODING", "UTF8 timeout=3");
 			cData.push(geDS);
 			m_pData.push_back(geDS);
+			successfulConnections++;
 		}
-		db_path = path;
+		else
+		{
+			// Log or handle connection failure
+			std::cerr << "Failed to create connection for: " << path << std::endl;
+		}
 	}
-	m_timeout = timeout;*/
+	size = successfulConnections; // Update size to reflect actual connections
+	db_path = path;
+	m_timeout = timeout;
 }
-
 void CConnectionPool::reConnect(GDALDataset*& connection)
 {
 	std::unique_lock<std::mutex> lk(cv_m);
