@@ -12,8 +12,8 @@ public:
 public:
 	std::string msg;
 public: 
-	BOOL Connect(std::string dbName, std::string dbHost, int dbPort, std::string dbUser, std::string dbPassword);  
-	BOOL initSchema(std::string content);
+	bool Connect(std::string dbName, std::string dbHost, int dbPort, std::string dbUser, std::string dbPassword);  
+	bool initSchema(std::string content);
 	//----------------------------------------------------------------------------------------------------------------------
 	void Destroy();
 	

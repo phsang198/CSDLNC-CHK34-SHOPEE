@@ -78,6 +78,8 @@ void CIDNService::API_KhachHang()
 				kh.NgayDK = x["NgayDK"].s();
 				kh.MaPTTT = x["MaPTTT"].i();
 				cache::lstKhachHang[kh.MaKH] = kh;
+				RESOURCETYPE tmp = kh;
+				int error = m_ResourceModel.updateResource("khachhang", tmp);
 				return RESP(200);
 			});
 
@@ -143,6 +145,9 @@ void CIDNService::API_NguoiBan()
 				nb.MaDC = x["MaDC"].i();
 
 				cache::lstNguoiBan[nb.MaNB] = nb;
+				RESOURCETYPE tmp = nb;
+				int error = m_ResourceModel.addResource("nguoiban", tmp);
+
 				return RESP(200);
 			});
 
@@ -164,6 +169,8 @@ void CIDNService::API_NguoiBan()
 				nb.MaDC = x["MaDC"].i();
 
 				cache::lstNguoiBan[nb.MaNB] = nb;
+				RESOURCETYPE tmp = nb;
+				int error = m_ResourceModel.updateResource("nguoiban", tmp);
 				return RESP(200);
 			});
 
@@ -225,6 +232,8 @@ void CIDNService::API_SanPham()
 				sp.MaNB = x["MaNB"].i();
 
 				cache::lstSanPham[sp.MaSP] = sp;
+				RESOURCETYPE tmp = sp;
+				int error = m_ResourceModel.addResource("sanpham", tmp);
 				return RESP(200);
 			});
 
@@ -244,6 +253,8 @@ void CIDNService::API_SanPham()
 				sp.MaNB = x["MaNB"].i();
 
 				cache::lstSanPham[sp.MaSP] = sp;
+				RESOURCETYPE tmp = sp;
+				int error = m_ResourceModel.updateResource("sanpham", tmp);
 				return RESP(200);
 			});
 

@@ -1,10 +1,10 @@
 {
 	"service": {
-		"name": "Schedule",
+		"name": "Service",
 		"port": 18089,
 		"app_token": "bcf9563b-2a26-4ad9-bb11-139bc9825968",
 		"service_guid": "2ca6fe87-0b02-4e89-b15e-a07cd8d95837",
-		"description": "VBD ScheduleService 1.0( 240)",
+		"description": "Service",
 		"service_type": "Object",
 		"crow": {
 			"maxThread": 50,
