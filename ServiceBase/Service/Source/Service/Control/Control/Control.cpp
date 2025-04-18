@@ -35,7 +35,7 @@ void CIDNService::API_KhachHang()
 
 				std::ostringstream oss;
 				oss << result;
-				crow::response res(oss.str());
+				crow::response res(oss.str()); 
 				response::add_header(res);
 				res.set_header("content-type", "application/json");
 				return res;
@@ -57,7 +57,9 @@ void CIDNService::API_KhachHang()
 				kh.MaPTTT = x["MaPTTT"].i();
 				kh.MaKH = rand() % 100 + 1;
 				cache::lstKhachHang[kh.MaKH] = kh;
-				return RESP(200);
+				RESOURCETYPE tmp = kh;
+				int error = m_ResourceModel.addResource("khachhang", tmp); 
+				return RESP(error);
 			});
 
 	//--------------------------------------------------------------------------------------------------------------------------

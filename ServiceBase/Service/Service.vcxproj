@@ -161,7 +161,7 @@ xcopy /E /Y /I "$(ProjectDir)Lib\poco\bin\*.*" "$(OutDir)"</Command>
     <ClCompile Include="Source\MainService.cpp" />
     <ClCompile Include="Source\Service\Control\MainControl\IDNService.cpp" />
     <ClCompile Include="Source\Service\Control\MiddlewareControl\MiddlewareControl.cpp" />
-    <ClCompile Include="Source\Service\Control\ServicemeshControl\ServicemeshControl.cpp" />
+    <ClCompile Include="Source\Service\Control\Control\Control.cpp" />
     <ClCompile Include="Source\Service\Model\CModel\Model.cpp" />
     <ClCompile Include="Source\Service\Model\ProviderModel\ProviderModel.cpp" />
     <ClCompile Include="Source\Service\Model\ResourceModel\ResourceModel.cpp" />

@@ -25,6 +25,6 @@ public:
 class ConnectionManager
 {
 public:
-	static int QueryOrther(std::string query, std::string& Id);
+	static int QueryOrther(std::string query, std::string& Id, std::string rRes = "id");
 	static int QueryGet(GDALDataset*& geDS, OGRLayer*& poLayer, std::string& query);
 };

@@ -27,7 +27,7 @@ CConnectionPool::~CConnectionPool()
 
 void CConnectionPool::createPool(std::string dbName, std::string dbHost, int dbPort, std::string dbUser, std::string dbPassword, double timeout)
 {
-	/*GDALAllRegister();
+	GDALAllRegister();
 	for (int i = 0; i < size; ++i)
 	{
 		GDALDataset* geDS;
@@ -47,7 +47,7 @@ void CConnectionPool::createPool(std::string dbName, std::string dbHost, int dbP
 		}
 		db_path = path;
 	}
-	m_timeout = timeout;*/
+	m_timeout = timeout;
 }
 
 void CConnectionPool::reConnect(GDALDataset*& connection)

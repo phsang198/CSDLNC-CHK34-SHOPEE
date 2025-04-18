@@ -1,4 +1,4 @@
-#pragma once 
+﻿#pragma once 
 #include "pch.h"
 #include "ResourceModel.h"
 #include "ConnectionPool/ConnectionPool.h"
@@ -26,36 +26,99 @@ ResourceModel::~ResourceModel()
 {
 }
 
-int ResourceModel::addResource(resource& _Resource)
+int ResourceModel::addResource(std::string rscname, RESOURCETYPE& _Resource)
 {
-	std::string query =
-		R"(INSERT INTO "resourcemanager"(auid,rscid,rscname,belongname,belongid) 
-			VALUES ('$auid','$rscid','$rscname','$belongname','$belongid')
-			RETURNING id )";
+	std::string query;
+	std::string idColumn;
+	std::string id;
 
-	StringProcess::ReplaceAll(query, "$auid", _Resource.auid);
-	StringProcess::ReplaceAll(query, "$rscid", _Resource.rscid);
-	StringProcess::ReplaceAll(query, "$rscname", _Resource.rscname);
-	if (_Resource.belongid != "")
-		StringProcess::ReplaceAll(query, "$belongname", _Resource.belongname);
-	else
-		StringProcess::ReplaceAll(query, R"('$belongname')", "NULL");
-	if (_Resource.belongid != "")
-		StringProcess::ReplaceAll(query, "$belongid", _Resource.belongid);
-	else
-		StringProcess::ReplaceAll(query, R"('$belongid')", "NULL");
+	if (rscname == "khachhang") {
+		auto tmp = std::get<KhachHang>(_Resource);
+		query = R"(INSERT INTO khachhang(matkhau, ten, sdt, email, ngaydk, mapttt)
+		           VALUES ('$matkhau', '$ten', '$sdt', '$email', '$ngaydk', $mapttt)
+		           RETURNING makh)";
+		idColumn = "makh";
+		StringProcess::ReplaceAll(query, "$matkhau", tmp.MatKhau);
+		StringProcess::ReplaceAll(query, "$ten", tmp.Ten);
+		StringProcess::ReplaceAll(query, "$sdt", tmp.Sdt);
+		StringProcess::ReplaceAll(query, "$email", tmp.Email);
+		StringProcess::ReplaceAll(query, "$ngaydk", tmp.NgayDK);
+		StringProcess::ReplaceAll(query, "$mapttt", std::to_string(tmp.MaPTTT));
+	}
+	else if (rscname == "nguoiban") {
+		auto tmp = std::get<NguoiBan>(_Resource);
+		query = R"(INSERT INTO nguoiban(ten, mst, sdt, email, ngaydk, matkhau, madc)
+		           VALUES ('$ten', '$mst', '$sdt', '$email', '$ngaydk', '$matkhau', $madc)
+		           RETURNING manb)";
+		idColumn = "manb";
+		StringProcess::ReplaceAll(query, "$ten", tmp.Ten);
+		StringProcess::ReplaceAll(query, "$mst", tmp.MST);
+		StringProcess::ReplaceAll(query, "$sdt", tmp.Sdt);
+		StringProcess::ReplaceAll(query, "$email", tmp.Email);
+		StringProcess::ReplaceAll(query, "$ngaydk", tmp.NgayDK);
+		StringProcess::ReplaceAll(query, "$matkhau", tmp.MatKhau);
+		StringProcess::ReplaceAll(query, "$madc", std::to_string(tmp.MaDC));
+	}
+	else if (rscname == "sanpham") {
+		auto tmp = std::get<SanPham>(_Resource);
+		query = R"(INSERT INTO sanpham(ten, ngaynhapkho, soluong, giaban, manb)
+		           VALUES ('$ten', '$ngaynhapkho', $soluong, $giaban, $manb)
+		           RETURNING masp)";
+		idColumn = "masp";
+		StringProcess::ReplaceAll(query, "$ten", tmp.Ten);
+		StringProcess::ReplaceAll(query, "$ngaynhapkho", tmp.NgayNhapKho);
+		StringProcess::ReplaceAll(query, "$soluong", std::to_string(tmp.SoLuong));
+		StringProcess::ReplaceAll(query, "$giaban", std::to_string(tmp.GiaBan));
+		StringProcess::ReplaceAll(query, "$manb", std::to_string(tmp.MaNB));
+	}
+	else if (rscname == "donhang") {
+		auto tmp = std::get<DonHang>(_Resource);
+		query = R"(INSERT INTO donhang(ngaydat, trangthai, madc, makh, mapttt, trangthaithanhtoan, mavc, mavcnb, maptvc, tongtien)
+		           VALUES ('$ngaydat', '$trangthai', $madc, $makh, $mapttt, '$trangthaithanhtoan', $mavc, $mavcnb, $maptvc, $tongtien)
+		           RETURNING madh)";
+		idColumn = "madh";
+		StringProcess::ReplaceAll(query, "$ngaydat", tmp.NgayDat);
+		StringProcess::ReplaceAll(query, "$trangthai", tmp.TrangThai);
+		StringProcess::ReplaceAll(query, "$madc", std::to_string(tmp.MaDC));
+		StringProcess::ReplaceAll(query, "$makh", std::to_string(tmp.MaKH));
+		StringProcess::ReplaceAll(query, "$mapttt", std::to_string(tmp.MaPTTT));
+		StringProcess::ReplaceAll(query, "$trangthaithanhtoan", tmp.TrangThaiThanhToan);
+		StringProcess::ReplaceAll(query, "$mavc", std::to_string(tmp.MaVC));
+		StringProcess::ReplaceAll(query, "$mavcnb", std::to_string(tmp.MaVCNB));
+		StringProcess::ReplaceAll(query, "$maptvc", std::to_string(tmp.MaPTVC));
+		StringProcess::ReplaceAll(query, "$tongtien", std::to_string(tmp.TongTien));
+	}
+	else if (rscname == "voucher") {
+		auto tmp = std::get<Voucher>(_Resource);
+		query = R"(INSERT INTO voucher(tenvc, giatri, soluong, ngayhethan, ngaykhadung)
+		           VALUES ('$tenvc', $giatri, $soluong, '$ngayhethan', '$ngaykhadung')
+		           RETURNING mavc)";
+		idColumn = "mavc";
+		StringProcess::ReplaceAll(query, "$tenvc", tmp.TenVC);
+		StringProcess::ReplaceAll(query, "$giatri", std::to_string(tmp.GiaTri));
+		StringProcess::ReplaceAll(query, "$soluong", std::to_string(tmp.SoLuong));
+		StringProcess::ReplaceAll(query, "$ngayhethan", tmp.NgayHetHan);
+		StringProcess::ReplaceAll(query, "$ngaykhadung", tmp.NgayKhaDung);
+	}
+	else if (rscname == "diachi") {
+		auto tmp = std::get<DiaChi>(_Resource);
+		query = R"(INSERT INTO diachi(tendc) VALUES ('$tendc') RETURNING madc)";
+		idColumn = "madc";
+		StringProcess::ReplaceAll(query, "$tendc", tmp.TenDC);
+	}
+	else {
+		return 404;
+	}
 
-	return ConnectionManager::QueryOrther(query, _Resource.id);
+	return ConnectionManager::QueryOrther(query, id, idColumn);
 }
 
 
-int ResourceModel::getResource(std::string rscname, std::string auid, std::vector<RESOURCETYPE>& lst_Resource)
+int ResourceModel::getResource(std::string rscname,  std::vector<RESOURCETYPE>& lst_Resource)
 {
-	std::string query = R"(SELECT * FROM "resourcemanager" 
-						   WHERE  rscname = '$rscname' AND auid = '$auid' )";
+	std::string query = R"(SELECT * FROM "$rscname" )";
 
 
-	StringProcess::ReplaceAll(query, "$auid", auid);
 	StringProcess::ReplaceAll(query, "$rscname", rscname);
 
 	GDALDataset* geDS;
@@ -73,52 +136,17 @@ int ResourceModel::getResource(std::string rscname, std::string auid, std::vecto
 	CConnectionPool::addConnection(geDS);
 	return test;
 }
-int ResourceModel::deleteResource(const std::string rscname , const std::string& auid, const std::string& id)
+int ResourceModel::deleteResource(const std::string rscname , const std::string& id)
 {
 	std::string query =
-		R"(DELETE from "Resource"
-			WHERE "Resource".id = '$id' 
-			RETURNING id )";
-
-	if (rscname != "resource")
-	{
 		query = R"(DELETE FROM "$rscname"
-					WHERE id IN (
-						SELECT rscid
-						FROM resourcemanager
-						WHERE auid = '$auid' AND rscname = '$rscname'
+					WHERE "$rscname".id = '$id'
 					) 
 				)";
-		if (id != "") query += "AND id = '$id'"; 
-		query += " RETURNING id ";
-	}
 	StringProcess::ReplaceAll(query, "$id", id);
-	StringProcess::ReplaceAll(query, "$auid", auid);
 	StringProcess::ReplaceAll(query, "$rscname", rscname);
 
 	std::string tmpid;
 	return ConnectionManager::QueryOrther(query, tmpid);
-}
-
-int ResourceModel::Query(const std::string& id, const std::string& geos, const std::string& tablename)
-{
-	std::string query =
-		R"(
-			CREATE TABLE IF NOT EXISTS public."geom_data"
-			(
-				id uuid NOT NULL DEFAULT uuid_generate_v4(),
-				geom GEOMETRY 
-			))";
-
-	std::string tmpid;
-	ConnectionManager::QueryOrther(query, tmpid);
-
-	query = R"(INSERT INTO geom_data (id, geom) 
-			VALUES ('$id',ST_GeomFromWKB('$wkb', 4326)) )";
-	StringProcess::ReplaceAll(query, "$id", id);
-	StringProcess::ReplaceAll(query, "$wkb", geos);
-
-	return ConnectionManager::QueryOrther(query, tmpid);
-
 }
 

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ConnectionPool.h"
 //-----------------------------------------------------------------------------------------------------------
-int ConnectionManager::QueryOrther(std::string query, std::string& Id)
+int ConnectionManager::QueryOrther(std::string query, std::string& Id, std::string rRes)
 {
 	GDALDataset* geDS = CConnectionPool::getConnection();
 	if (geDS == NULL)
@@ -46,7 +46,7 @@ int ConnectionManager::QueryOrther(std::string query, std::string& Id)
 	OGRFeature* poFeature = poLayer->GetNextFeature();
 	if (poFeature != NULL)
 	{
-		Id = poFeature->GetFieldAsString("id");					// co returning
+		Id = poFeature->GetFieldAsString(rRes.c_str());					// co returning
 	}
 
 	geDS->ReleaseResultSet(poLayer);
